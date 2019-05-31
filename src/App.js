@@ -7,7 +7,7 @@ class App extends Component {
     super(props)
     this.state = {
       bananasReceived: [],
-      bananas: localStorage.getItem("bananas")
+      currentUser: ""
     }
     this.getBananas = this.getBananas.bind(this)
     this.login = this.login.bind(this)
@@ -23,8 +23,8 @@ class App extends Component {
     }).then(result => result.json()).then((result) => {
         return this.setState({
             bananasReceived: result
-        })    
-    })
+          })
+        })
       .catch(err => console.error(err))
   }
 
@@ -42,13 +42,16 @@ class App extends Component {
       }
     }).then(result => result.json())
       .then(function (result) {
-        console.log(result)
         localStorage.setItem("jwt", result.jwt)
+      }).then(() => {
+        return this.setState({
+          currentUser: email
+        })
       })
       .catch(err => console.error(err))
   }
   render() {
-    console.log(this.state.bananasReceived)
+    console.log(this.state)
     return (
       <div className="container" >
         <button onClick={this.getBananas} style={{ marginTop: '25vh' }} >Get Bananas</button>
@@ -85,6 +88,7 @@ class App extends Component {
         {this.state.bananasReceived.map(banana => <div className="card">
           <p>{banana.name}</p>
           <p>{banana.location}</p>
+          <p>{this.state.currentUser}</p>
         </div>)
         }
       </div >
