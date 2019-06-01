@@ -57,7 +57,7 @@ class App extends Component {
     localStorage.setItem("jwt", "")
     this.setState({
       currentUser: "",
-      bananasReceived: []
+      bananasReceived: [] 
     })
   }
   render() {
