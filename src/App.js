@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
 import $ from 'jquery'
+import { runInThisContext } from 'vm';
 
 class App extends Component {
   constructor(props) {
@@ -11,6 +12,8 @@ class App extends Component {
     }
     this.getBananas = this.getBananas.bind(this)
     this.login = this.login.bind(this)
+    this.logout = this.logout.bind(this)
+    this.forceUpdate = this.forceUpdate.bind(this)
   }
   getBananas() {
     let token = "Bearer " + localStorage.getItem("jwt")
@@ -50,36 +53,50 @@ class App extends Component {
       })
       .catch(err => console.error(err))
   }
+  logout() {
+    localStorage.setItem("jwt", "")
+    this.setState({
+      currentUser: "",
+      bananasReceived: []
+    })
+  }
   render() {
     console.log(this.state)
     return (
       <div className="container" >
-        <button onClick={this.getBananas} style={{ marginTop: '25vh' }} >Get Bananas</button>
-        <br />
-        <form>
-          <label htmlFor="email">Email: </label>
-          <br />
-          <input
-            name="email"
-            id="email"
-            type="email"
-          />
-          <br />
-          <label htmlFor="password">Password: </label>
-          <br />
-          <input
-            name="password"
-            id="password"
-            type="password"
-          />
-        </form>
-        <button
-          onClick={this.login}>Login</button>
-        <br />
-        <button onClick={() => { this.getBananas(false) }} style={{ marginTop: "10v" }}>gGet One Banana</button>
+        {this.state.currentUser ? <button
+          onClick={this.logout}>Logout</button> :
 
-        <br />
-        <button onClick={() => { this.getBananas(true) }} style={{ marginTop: "10vg" }}>Get Bananas</button>
+          <div className='login'>
+            <form>
+            <label htmlFor="email">Email: </label>
+            <br />
+            <input
+              name="email"
+              id="email"
+              type="email"
+            />
+            <br />
+            <label htmlFor="password">Password: </label>
+            <br />
+            <input
+              name="password"
+              id="password"
+              type="password"
+            />
+          </form> 
+          <button
+            onClick={this.login}>Login</button>
+            </div> }
+          
+          
+          
+          
+          <button onClick={() => { this.getBananas(true) }} style={{ marginTop: "10vh" }}>Get Bananas </button> 
+       
+        
+
+        
 
 
 
