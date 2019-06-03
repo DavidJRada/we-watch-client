@@ -38,7 +38,32 @@ class Feed extends Component {
 
     return (
       <div className='feed'>
+        <div className="container" >
+          {this.state.currentUser ? <button
+            onClick={this.logout}>Logout</button> :
 
+            <div className='login'>
+              <form>
+                <label htmlFor="email">Email: </label>
+                <br />
+                <input
+                  name="email"
+                  id="email"
+                  type="email"
+                />
+                <br />
+                <label htmlFor="password">Password: </label>
+                <br />
+                <input
+                  name="password"
+                  id="password"
+                  type="password"
+                />
+              </form>
+              <button
+                onClick={this.login}>Login</button>
+            </div>}
+        </div>
       </div>
     );
   }
