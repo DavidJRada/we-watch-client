@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+// import { Router, Link, Switch, Redirect } from 'react-router-dom'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import 'materialize-css';
+import 'materialize-css/dist/css/materialize.min.css';
+import Nav from './components/Nav'
+import Left from './components/Left'
+import Feed from './components/Feed'
+import Right from './components/Right'
+import Footer from './components/Footer'
+
+
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+
+    }
+  }
+  render() {
+    return (
+      <div className='layout'>
+        <Nav />
+        <Left />
+        <Feed />
+        <Right />
+        <Footer />
+      </div>
+    );
+  }
 }
 
 export default App;
