@@ -11,6 +11,12 @@ import Footer from './components/Footer'
 import LoginPage from './components/LoginPage'
 
 
+if (process.env.NODE_ENV === 'development') {
+  baseURL = 'http://localhost:3000'
+} else {
+  baseURL = 'https://gitpub-backend.herokuapp.com'
+}
+
 class App extends Component {
   constructor(props) {
     super(props)
