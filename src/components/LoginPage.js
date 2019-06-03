@@ -41,7 +41,6 @@ class LoginPage extends Component {
         })
     }
     render() {
-        console.log(this.state.currentUser)
         return (
             <div className='feed'>
                 <div className="container" >

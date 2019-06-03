@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import FeedCard from './FeedCard'
 import $ from 'jquery'
 import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
@@ -20,7 +21,7 @@ class Feed extends Component {
   getFeed() {
     let token = "Bearer " + localStorage.getItem("jwt")
 
-    fetch('http://localhost:3000/api/feed_cards', {
+    fetch('http://localhost:3001/api/feed_cards', {
       type: "GET",
       headers: {
         'Authorization': token
@@ -35,34 +36,14 @@ class Feed extends Component {
 
 
   render() {
-
+    console.log(this.state.feed)
     return (
       <div className='feed'>
         <div className="container" >
-          {this.state.currentUser ? <button
-            onClick={this.logout}>Logout</button> :
-
-            <div className='login'>
-              <form>
-                <label htmlFor="email">Email: </label>
-                <br />
-                <input
-                  name="email"
-                  id="email"
-                  type="email"
-                />
-                <br />
-                <label htmlFor="password">Password: </label>
-                <br />
-                <input
-                  name="password"
-                  id="password"
-                  type="password"
-                />
-              </form>
-              <button
-                onClick={this.login}>Login</button>
-            </div>}
+          {this.state.feed.map(post => <div className="card">
+            <FeedCard key={post.id} post={post}/>
+          </div>)
+          }
         </div>
       </div>
     );

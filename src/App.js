@@ -41,14 +41,14 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     }).then(result => result.json())
-    .then(function (result) {
-      localStorage.setItem("jwt", result.jwt)
-    }).then(() => {
-      return this.setState({
-        currentUser: username
+      .then(function (result) {
+        localStorage.setItem("jwt", result.jwt)
+      }).then(() => {
+        return this.setState({
+          currentUser: username
+        })
       })
-    })
-    .catch(err => console.error(err))
+      .catch(err => console.error(err))
   }
   logout() {
     localStorage.setItem("jwt", "")
@@ -58,17 +58,19 @@ class App extends Component {
   }
   render() {
     return (
-      <div className='layout'>
+      <>
         <Nav />
+        {/* <div className='layout'> */}
           {this.state.currentUser ?
-            <div>
+            <div className='layout'>
               <Left />
               <Feed />
               <Right />
               <Footer />
             </div> :
             <LoginPage handleLogin={this.handleLogin} />}
-      </div>
+        {/* </div> */}
+      </>
     );
   }
 }
