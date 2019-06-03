@@ -1,8 +1,17 @@
 import React, { Component } from 'react'
 import FeedCard from './FeedCard'
-import $ from 'jquery'
+// import $ from 'jquery'
 import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
+
+let baseURL = ""
+
+if (process.env.NODE_ENV === 'development') {
+  baseURL = 'http://localhost:3001'
+} else {
+  baseURL = 'https://we-watch-api.herokuapp.com'
+}
+
 
 class Feed extends Component {
   constructor(props) {
@@ -21,7 +30,7 @@ class Feed extends Component {
   getFeed() {
     let token = "Bearer " + localStorage.getItem("jwt")
 
-    fetch('http://localhost:3001/api/feed_cards', {
+    fetch(baseURL + '/api/feed_cards', {
       type: "GET",
       headers: {
         'Authorization': token
@@ -40,8 +49,8 @@ class Feed extends Component {
     return (
       <div className='feed'>
         <div className="container" >
-          {this.state.feed.map(post => <div className="card">
-            <FeedCard key={post.id} post={post}/>
+          {this.state.feed.map(feed_card => <div className="card">
+            <FeedCard key={feed_card.id} feed_card={feed_card}/>
           </div>)
           }
         </div>

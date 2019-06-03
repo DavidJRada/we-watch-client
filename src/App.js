@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Link, Switch, Redirect } from 'react-router-dom'
+// import { Router, Link, Switch, Redirect } from 'react-router-dom'
 import $ from 'jquery'
 import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
@@ -22,12 +22,35 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentUser: ""
+      currentUser: "",
+      feed: []
     }
     this.login = this.login.bind(this)
     this.logout = this.logout.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
+    this.handleAdd = this.handleAdd.bind(this)
   }
+
+  handleAdd(event, formInputs) {
+    event.preventDefault()
+    fetch(baseURL + '/api/feed_cards', {
+      body: JSON.stringify(formInputs),
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(createdPost => {
+        return createdPost.json()
+      })
+      .then(jsonedPost => {
+        this.setState({
+          feed: [jsonedPost, ...this.state.posts]
+        })
+      }).catch(error => console.error(error))
+  }
+
   handleLogin(username) {
     console.log(username)
     this.setState({
@@ -39,7 +62,7 @@ class App extends Component {
     const password = $("#password").val()
     const username = $("#username").val()
     const request = { "auth": { "email": email, "password": password, "username": username } }
-    console.log(request)
+    // console.log(request)
     fetch(baseURL + "/api/user_token", {
       body: JSON.stringify(request),
       method: 'POST',
@@ -66,17 +89,18 @@ class App extends Component {
   render() {
     return (
       <>
-        <Nav />
-        {/* <div className='layout'> */}
+        <Nav currentUser={this.state.currentUser} />
+        <div className='layout'>
           {this.state.currentUser ?
-            <div className='layout'>
-              <Left />
-              <Feed />
-              <Right />
-              <Footer />
-            </div> :
+          <>
+            <Left />
+            <Feed />
+            <Right handleSubmit={this.handleAdd} />
+            <Footer />
+            </>
+             :
             <LoginPage handleLogin={this.handleLogin} />}
-        {/* </div> */}
+        </div>
       </>
     );
   }
