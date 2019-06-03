@@ -31,7 +31,7 @@ class LoginPage extends Component {
                 return this.setState({
                     currentUser: username
                 })
-            })
+            }).then(this.props.handleLogin(username))
             .catch(err => console.error(err))
     }
     logout() {
@@ -43,39 +43,41 @@ class LoginPage extends Component {
     render() {
         console.log(this.state.currentUser)
         return (
-            <div className="container" >
-                {this.state.currentUser ? <button
-                    onClick={this.logout}>Logout</button> :
+            <div className='feed'>
+                <div className="container" >
+                    {this.state.currentUser ? <button
+                        onClick={this.logout}>Logout</button> :
 
-                    <div className='login'>
-                        <form>
-                            <label htmlFor="email">Email: </label>
-                            <br />
-                            <input
-                                name="email"
-                                id="email"
-                                type="email"
-                            />
-                            <br />
-                            <label htmlFor="password">Password: </label>
-                            <br />
-                            <input
-                                name="password"
-                                id="password"
-                                type="password"
-                            />
-                            <br />
-                            <label htmlFor="username">username: </label>
-                            <br />
-                            <input
-                                name="username"
-                                id="username"
-                                type="text"
-                            />
-                        </form>
-                        <button
-                            onClick={this.login}>Login</button>
-                    </div>}
+                        <div className='login'>
+                            <form>
+                                <label htmlFor="email">Email: </label>
+                                <br />
+                                <input
+                                    name="email"
+                                    id="email"
+                                    type="email"
+                                />
+                                <br />
+                                <label htmlFor="password">Password: </label>
+                                <br />
+                                <input
+                                    name="password"
+                                    id="password"
+                                    type="password"
+                                />
+                                <br />
+                                <label htmlFor="username">username: </label>
+                                <br />
+                                <input
+                                    name="username"
+                                    id="username"
+                                    type="text"
+                                />
+                            </form>
+                            <button
+                                onClick={this.login}>Login</button>
+                        </div>}
+                </div>
             </div>
         )
     }

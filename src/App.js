@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Link, Switch, Redirect } from 'react-router-dom'
-
+import $ from 'jquery'
 import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 import Nav from './components/Nav'
@@ -17,20 +17,57 @@ class App extends Component {
     this.state = {
       currentUser: ""
     }
+    this.login = this.login.bind(this)
+    this.logout = this.logout.bind(this)
+    this.handleLogin = this.handleLogin.bind(this)
+  }
+  handleLogin(username) {
+    console.log(username)
+    this.setState({
+      currentUser: username
+    })
+  }
+  login() {
+    const email = $("#email").val()
+    const password = $("#password").val()
+    const username = $("#username").val()
+    const request = { "auth": { "email": email, "password": password, "username": username } }
+    console.log(request)
+    fetch("http://localhost:3001/api/user_token", {
+      body: JSON.stringify(request),
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    }).then(result => result.json())
+    .then(function (result) {
+      localStorage.setItem("jwt", result.jwt)
+    }).then(() => {
+      return this.setState({
+        currentUser: username
+      })
+    })
+    .catch(err => console.error(err))
+  }
+  logout() {
+    localStorage.setItem("jwt", "")
+    this.setState({
+      currentUser: "",
+    })
   }
   render() {
     return (
       <div className='layout'>
-      <Nav />
-        {this.state.currentUser ?
-          <Router>
-            <Left />
-            <Feed />
-            <Right />
-            <Footer />
-            </Router> :
-          <LoginPage />}
-
+        <Nav />
+          {this.state.currentUser ?
+            <div>
+              <Left />
+              <Feed />
+              <Right />
+              <Footer />
+            </div> :
+            <LoginPage handleLogin={this.handleLogin} />}
       </div>
     );
   }
