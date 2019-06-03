@@ -10,12 +10,13 @@ import Right from './components/Right'
 import Footer from './components/Footer'
 import LoginPage from './components/LoginPage'
 
+let baseURL = ""
 
-// if (process.env.NODE_ENV === 'development') {
-//   baseURL = 'http://localhost:3000'
-// } else {
-//   baseURL = 'https://gitpub-backend.herokuapp.com'
-// }
+if (process.env.NODE_ENV === 'development') {
+  baseURL = 'http://localhost:3001'
+} else {
+  baseURL = 'https://we-watch-api.herokuapp.com'
+}
 
 class App extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class App extends Component {
     const username = $("#username").val()
     const request = { "auth": { "email": email, "password": password, "username": username } }
     console.log(request)
-    fetch("http://localhost:3001/api/user_token", {
+    fetch(baseUrl + "/api/user_token", {
       body: JSON.stringify(request),
       method: 'POST',
       headers: {

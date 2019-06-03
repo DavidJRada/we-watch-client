@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
 import $ from 'jquery'
 
+let baseURL = ""
+
+if (process.env.NODE_ENV === 'development') {
+  baseURL = 'http://localhost:3001'
+} else {
+  baseURL = 'https://we-watch-api.herokuapp.com'
+}
+
 class LoginPage extends Component {
     constructor(props) {
         super(props)
@@ -17,7 +25,7 @@ class LoginPage extends Component {
         const username = $("#username").val()
         const request = { "auth": { "email": email, "password": password, "username": username } }
         console.log(request)
-        fetch("http://localhost:3001/api/user_token", {
+        fetch(baseURL + "/api/user_token", {
             body: JSON.stringify(request),
             method: 'POST',
             headers: {
