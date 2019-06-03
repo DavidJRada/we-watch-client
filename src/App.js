@@ -40,7 +40,7 @@ class App extends Component {
     const username = $("#username").val()
     const request = { "auth": { "email": email, "password": password, "username": username } }
     console.log(request)
-    fetch(baseUrl + "/api/user_token", {
+    fetch(baseURL + "/api/user_token", {
       body: JSON.stringify(request),
       method: 'POST',
       headers: {
