@@ -7,12 +7,12 @@ import 'materialize-css/dist/css/materialize.min.css';
 
 
 const Feed = props => {
-  const { feed } = props
+  const { feed, handleDelete } = props
   return (
     <div className='feed'>
       <div className="container" >
         {feed.map(feed_card => <div className="card">
-          <FeedCard key={feed_card.id} feed_card={feed_card} />
+          <FeedCard key={feed_card.id} feed_card={feed_card} handleDelete={handleDelete} />
         </div>)
         }
       </div>

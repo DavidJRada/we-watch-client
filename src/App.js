@@ -38,27 +38,12 @@ class App extends Component {
     this.handleLogin = this.handleLogin.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
     this.getFeed = this.getFeed.bind(this)
-    // this.fetch = window.fetch.bind(window)
+    this.handleDelete = this.handleDelete.bind(this)
   }
-  
+
   handleAdd(event, formInputs) {
     event.preventDefault()
     let token = "Bearer " + localStorage.getItem("jwt")
-    console.log(token)
-    console.log(formInputs)
-    console.log(baseURL + "/api/feed_cards")
-    console.log(JSON.stringify(formInputs))
-    // fetch(baseURL + "/api/feed_cards", {
-    //   body: JSON.stringify(formInputs),
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json, text/plain, */*',
-    //     'Content-Type': 'application/json',
-    //     'Authorization:': token
-    //   }
-    // })
-
-
     fetch(baseURL + "/api/feed_cards", {
       body: JSON.stringify(formInputs),
       method: 'POST',
@@ -97,6 +82,27 @@ class App extends Component {
     })
       .catch(err => console.error(err))
   }
+  handleDelete(deletedFeed_card) {
+    let token = "Bearer " + localStorage.getItem("jwt")
+
+    fetch(baseURL + `/api/feed_cards/${deletedFeed_card.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-type': 'application/json',
+        "Authorization": token
+      }
+    })
+      .then(json => {
+        this.setState(state => {
+          const feed = state.feed.filter(feed_card => {
+            return feed_card.id !== deletedFeed_card.id
+          })
+          return { feed }
+        })
+      }).catch(error => console.log(error))
+  }
+
   handleLogin(username) {
     this.setState({
       currentUser: username
@@ -140,7 +146,7 @@ class App extends Component {
           {this.state.currentUser ?
             <>
               <Left />
-              <Feed feed={this.state.feed}/>
+              <Feed feed={this.state.feed} handleDelete={this.handleDelete} />
               <Right handleSubmit={this.handleAdd} />
               <Footer />
             </>
