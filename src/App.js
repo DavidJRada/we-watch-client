@@ -22,7 +22,11 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentUser: "",
+      currentUser: {
+        username: '',
+        password: '',
+        email: ''
+      },
       feed: [],
       formInputs: {
         img: "",
@@ -43,6 +47,7 @@ class App extends Component {
 
   handleAdd(event, formInputs) {
     event.preventDefault()
+    console.log(formInputs)
     let token = "Bearer " + localStorage.getItem("jwt")
     fetch(baseURL + "/api/feed_cards", {
       body: JSON.stringify(formInputs),
@@ -103,10 +108,27 @@ class App extends Component {
       }).catch(error => console.log(error))
   }
 
-  handleLogin(username) {
+  handleLogin(user) {
     this.setState({
-      currentUser: username
+      currentUser: user
     })
+  }
+  handleUpdate(event, formInputs) {
+    event.preventDefault()
+
+    let token = "Bearer " + localStorage.getItem("jwt")
+
+    fetch(baseURL + `/api/feed_cards/${formInputs.id}`, {
+      body: JSON.stringify(formInputs),
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-type': 'application/json',
+        "Authorization": token
+      }
+    }).then(updatedFeed_card => {
+      this.getFeed()
+    }).catch(error => console.error(error))
   }
   login() {
     const email = $("#email").val()
@@ -126,7 +148,11 @@ class App extends Component {
         localStorage.setItem("jwt", result.jwt)
       }).then(() => {
         return this.setState({
-          currentUser: username
+          currentUser: {
+            email: email,
+            password: password,
+            username: username
+          }
         })
       })
       .catch(err => console.error(err))
@@ -134,19 +160,19 @@ class App extends Component {
   logout() {
     localStorage.setItem("jwt", "")
     this.setState({
-      currentUser: "",
+      user: {},
     })
   }
   render() {
     console.log(this.state.currentUser)
     return (
       <>
-        <Nav currentUser={this.state.currentUser} logout={this.logout} />
+        <Nav currentUser={this.currentUser} logout={this.logout} />
         <div className='layout'>
-          {this.state.currentUser ?
+          {this.state.currentUser.email ?
             <>
               <Left />
-              <Feed feed={this.state.feed} handleDelete={this.handleDelete} />
+              <Feed feed={this.state.feed} handleDelete={this.handleDelete} handleUpdate={this.handleUpdate} currentUser={this.state.currentUser}/>
               <Right handleSubmit={this.handleAdd} />
               <Footer />
             </>

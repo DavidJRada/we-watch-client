@@ -98,14 +98,6 @@ class Form extends React.Component {
                     value={this.state.likes}
                     id={'likes'}
                 />
-                <Input
-                    handleChange={this.handleChange}
-                    name={'user_id'}
-                    placeholder={'user_id'}
-                    type={'number'}
-                    value={this.state.user_id}
-                    id={'user_id'}
-                />
                 <input type='submit' value={this.props.feed_card ? "update this feed_card" : "add this feed_card"} />
             </form>
         )

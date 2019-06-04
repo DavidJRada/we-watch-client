@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
-import $ from 'jquery'
+// import $ from 'jquery'
 
 // let baseURL = ""
 
@@ -61,7 +61,7 @@ const LoginPage = props => {
         <div className='feed'>
             <div className="container" >
                  <button
-                    onClick={()=> {this.logout()}}>Logout</button> 
+                    onClick={()=> {logout()}}>Logout</button> 
 
                     <div className='login'>
                         <form>
