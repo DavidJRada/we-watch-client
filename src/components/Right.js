@@ -3,10 +3,11 @@ import Form from './Form'
 import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 
-function Right(props) {
+const Right = props => {
+  const { handleSubmit } = props
   return (
     <div className='right'>
-      <Form handleSubmit={props.handleSubmit} />
+      <Form handleSubmit={handleSubmit} />
     </div>
   );
 }

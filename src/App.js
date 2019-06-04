@@ -23,36 +23,81 @@ class App extends Component {
     super(props)
     this.state = {
       currentUser: "",
-      feed: []
+      feed: [],
+      formInputs: {
+        img: "",
+        title: "",
+        content: "",
+        subscribed: false,
+        likes: 0,
+        user_id: 0
+      }
     }
     this.login = this.login.bind(this)
     this.logout = this.logout.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
+    this.getFeed = this.getFeed.bind(this)
+    // this.fetch = window.fetch.bind(window)
   }
-
+  
   handleAdd(event, formInputs) {
     event.preventDefault()
-    fetch(baseURL + '/api/feed_cards', {
+    let token = "Bearer " + localStorage.getItem("jwt")
+    console.log(token)
+    console.log(formInputs)
+    console.log(baseURL + "/api/feed_cards")
+    console.log(JSON.stringify(formInputs))
+    // fetch(baseURL + "/api/feed_cards", {
+    //   body: JSON.stringify(formInputs),
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json, text/plain, */*',
+    //     'Content-Type': 'application/json',
+    //     'Authorization:': token
+    //   }
+    // })
+
+
+    fetch(baseURL + "/api/feed_cards", {
       body: JSON.stringify(formInputs),
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Authorization": token
       }
     })
-      .then(createdPost => {
-        return createdPost.json()
+      .then(createdFeed_card => {
+        return createdFeed_card.json()
       })
-      .then(jsonedPost => {
+      .then(jsonedFeed_card => {
         this.setState({
-          feed: [jsonedPost, ...this.state.posts]
+          feed: [jsonedFeed_card, ...this.state.feed]
         })
       }).catch(error => console.error(error))
   }
 
+  componentDidMount() {
+    this.getFeed()
+  }
+
+  getFeed() {
+    let token = "Bearer " + localStorage.getItem("jwt")
+
+    fetch(baseURL + '/api/feed_cards', {
+      type: "GET",
+      headers: {
+        'Authorization': token
+      }
+    }).then(result => result.json()).then((result) => {
+      return this.setState({
+        feed: result
+      })
+    })
+      .catch(err => console.error(err))
+  }
   handleLogin(username) {
-    console.log(username)
     this.setState({
       currentUser: username
     })
@@ -87,19 +132,20 @@ class App extends Component {
     })
   }
   render() {
+    console.log(this.state.currentUser)
     return (
       <>
-        <Nav currentUser={this.state.currentUser} />
+        <Nav currentUser={this.state.currentUser} logout={this.logout} />
         <div className='layout'>
           {this.state.currentUser ?
-          <>
-            <Left />
-            <Feed />
-            <Right handleSubmit={this.handleAdd} />
-            <Footer />
+            <>
+              <Left />
+              <Feed feed={this.state.feed}/>
+              <Right handleSubmit={this.handleAdd} />
+              <Footer />
             </>
-             :
-            <LoginPage handleLogin={this.handleLogin} />}
+            :
+            <LoginPage login={this.login} logout={this.logout} />}
         </div>
       </>
     );

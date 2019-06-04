@@ -42,9 +42,8 @@ class Form extends React.Component {
                 title: this.state.title,
                 content: this.state.content,
                 subscribed: this.state.subscribed,
-                likes: this.state.likes,
-                user_id: this.state.user_id,
-                id: this.state.id
+                likes: Number(this.state.likes),
+                user_id: Number(this.state.user_id),
             }
         )
         this.setState({
@@ -55,9 +54,6 @@ class Form extends React.Component {
             likes: 0,
             user_id: 0
         })
-        if (this.props.notice) {
-            this.props.toggleForm()
-        }
     }
     render() {
         return (
@@ -73,7 +69,7 @@ class Form extends React.Component {
                 <Input
                     handleChange={this.handleChange}
                     name={'title'}
-                    placeholder={'Notice title'}
+                    placeholder={'title'}
                     type={'text'}
                     value={this.state.title}
                     id={'title'}
@@ -81,12 +77,36 @@ class Form extends React.Component {
                 <Input
                     handleChange={this.handleChange}
                     name={'content'}
-                    placeholder={'Notice content'}
+                    placeholder={'content'}
                     type={'text'}
                     value={this.state.content}
                     id={'content'}
                 />
-                <input type='submit' value={this.props.notice ? "update this notice" : "add this notice"} />
+                <Input
+                    handleChange={this.handleChange}
+                    name={'subscribed'}
+                    placeholder={'subscribed'}
+                    type={'boolean'}
+                    value={this.state.subscribed}
+                    id={'subscribed'}
+                />
+                <Input
+                    handleChange={this.handleChange}
+                    name={'likes'}
+                    placeholder={'likes'}
+                    type={'number'}
+                    value={this.state.likes}
+                    id={'likes'}
+                />
+                <Input
+                    handleChange={this.handleChange}
+                    name={'user_id'}
+                    placeholder={'user_id'}
+                    type={'number'}
+                    value={this.state.user_id}
+                    id={'user_id'}
+                />
+                <input type='submit' value={this.props.feed_card ? "update this feed_card" : "add this feed_card"} />
             </form>
         )
     }

@@ -3,15 +3,14 @@ import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 
 function Nav(props) {
-  const { currentUser } = props
-  console.log(currentUser)
+  const { currentUser, logout } = props
   return (
     <nav>
       <div className='nav-wrapper red text-darken-4'>
         <a href='/' className='brand-logo red left'>WeWatch</a>
-        <ul id='nav-monile' className='right red'>
+        <ul id='nav-mobile' className='right red'>
           {currentUser ? <>
-            <li><a href='/'>Logout</a></li> </>
+            <li onClick={() => {logout()}}><a href='/'>Logout</a></li> </>
             : <> <li><a href='/'>Login</a></li>
             <li><a href='/'>Sign Up</a></li> </>
         }
