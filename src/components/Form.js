@@ -5,7 +5,6 @@ class Form extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            feed_card: {},
             img: '',
             title: '',
             content: '',
@@ -42,8 +41,8 @@ class Form extends React.Component {
                 title: this.state.title,
                 content: this.state.content,
                 subscribed: this.state.subscribed,
-                likes: Number(this.state.likes),
-                user_id: Number(this.state.user_id),
+                likes: this.state.likes,
+                user_id: this.state.user_id
             }
         )
         this.setState({
@@ -56,6 +55,7 @@ class Form extends React.Component {
         })
     }
     render() {
+
         return (
             <form onSubmit={this.handleSubmit}>
                 <Input
@@ -98,7 +98,15 @@ class Form extends React.Component {
                     value={this.state.likes}
                     id={'likes'}
                 />
-                <input type='submit' value={this.props.feed_card ? "update this feed_card" : "add this feed_card"} />
+                <Input
+                    handleChange={this.handleChange}
+                    name={'user_id'}
+                    placeholder={'user_id'}
+                    type={'number'}
+                    value={this.state.user_id}
+                    id={'user_id'}
+                />
+                <input type='submit' value={this.props.feed_card ? "update this Post" : "add this Post"} />
             </form>
         )
     }

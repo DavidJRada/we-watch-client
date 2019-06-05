@@ -25,7 +25,8 @@ class App extends Component {
       currentUser: {
         username: '',
         password: '',
-        email: ''
+        email: '',
+        id: 0
       },
       feed: [],
       formInputs: {
@@ -42,6 +43,7 @@ class App extends Component {
     this.handleLogin = this.handleLogin.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
     this.getFeed = this.getFeed.bind(this)
+    this.getUser = this.getUser.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
   }
 
@@ -59,7 +61,8 @@ class App extends Component {
       }
     })
       .then(createdFeed_card => {
-        return createdFeed_card.json()
+        return createdFeed_card.json().then(console.log(createdFeed_card))
+
       })
       .then(jsonedFeed_card => {
         this.setState({
@@ -143,16 +146,45 @@ class App extends Component {
         'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
       }
-    }).then(result => result.json())
+    })
+      .then(result => result.json())
       .then(function (result) {
         localStorage.setItem("jwt", result.jwt)
-      }).then(() => {
-        return this.setState({
+      })
+      .then(() => {
+        this.setState({
           currentUser: {
             email: email,
             password: password,
-            username: username
+            username: username,
           }
+        })
+      })
+      .then(
+        this.getUser(username)
+      )
+      .catch(err => console.error(err))
+  }
+  getUser(username) {
+    // let username = this.state.currentUser.username
+    console.log(username)
+    fetch(baseURL + `/users/${username}`, {
+      method: "GET",
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    })
+  
+  .then(result => result.json())
+      .then(jsonedUser => {
+        return this.setState({
+          currentUser : {
+            email: jsonedUser.email,
+            password: jsonedUser.password,
+            username: jsonedUser.username,
+            id : jsonedUser.id
+          } 
         })
       })
       .catch(err => console.error(err))
@@ -172,7 +204,7 @@ class App extends Component {
           {this.state.currentUser.email ?
             <>
               <Left />
-              <Feed feed={this.state.feed} handleDelete={this.handleDelete} handleUpdate={this.handleUpdate} currentUser={this.state.currentUser}/>
+              <Feed feed={this.state.feed} handleDelete={this.handleDelete} currentUser={this.state.currentUser} handleUpdate={this.handleUpdate} />
               <Right handleSubmit={this.handleAdd} />
               <Footer />
             </>

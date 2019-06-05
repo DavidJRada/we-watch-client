@@ -8,7 +8,7 @@ class FeedCard extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            formVisible: false
+            formVisible: false,
         }
         this.toggleForm = this.toggleForm.bind(this)
     }
@@ -17,18 +17,19 @@ class FeedCard extends Component {
             formVisible: !this.state.formVisible
         })
     }
+
     render() {
         // const { feed_card, handleDelete, handleUpdate } = props
         return (
             <div className='card'>
 
                 {this.state.formVisible ?
-                    <Form feed_card={this.state.feed_card} handleUpdate={this.props.handleUpdate} /> :
+                    <Form feed_card={this.props.feed_card} handleUpdate={this.props.handleUpdate} /> :
                     <>
                         <div className='card-content'>
 
                             <img src={this.props.feed_card.img} alt="profile"></img>
-                            <h3>{this.props.feed_card.user.username}</h3>
+                            {/* <h3>{this.props.feed_card.user.username}</h3> */}
                             <span className='card-title'>{this.props.feed_card.title}</span>
                             <p>{this.props.feed_card.content}</p>
                             <p>{this.props.feed_card.subscribed}</p>
