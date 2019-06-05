@@ -199,9 +199,9 @@ class App extends Component {
     console.log(this.state.currentUser)
     return (
       <>
-        <Nav currentUser={this.currentUser} logout={this.logout} />
+        <Nav currentUser={this.state.currentUser} logout={this.logout} />
         <div className='layout'>
-          {this.state.currentUser.email ?
+          {this.state.currentUser.username ?
             <>
               <Left />
               <Feed feed={this.state.feed} handleDelete={this.handleDelete} currentUser={this.state.currentUser} handleUpdate={this.handleUpdate} />

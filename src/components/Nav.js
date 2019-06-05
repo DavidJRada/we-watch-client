@@ -9,7 +9,7 @@ function Nav(props) {
       <div className='nav-wrapper red text-darken-4'>
         <a href='/' className='brand-logo red left'>WeWatch</a>
         <ul id='nav-mobile' className='right red'>
-          {currentUser ? <>
+          {currentUser.username ? <>
             <li onClick={() => {logout()}}><a href='/'>Logout</a></li> </>
             : <> <li><a href='/'>Login</a></li>
             <li><a href='/'>Sign Up</a></li> </>
