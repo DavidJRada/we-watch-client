@@ -40,10 +40,10 @@ class App extends Component {
     }
     this.login = this.login.bind(this)
     this.logout = this.logout.bind(this)
-    this.handleLogin = this.handleLogin.bind(this)
+    // this.handleLogin = this.handleLogin.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
     this.getFeed = this.getFeed.bind(this)
-    this.getUser = this.getUser.bind(this)
+    // this.getUser = this.getUser.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
   }
 
@@ -76,19 +76,16 @@ class App extends Component {
   }
 
   getFeed() {
-    let token = "Bearer " + localStorage.getItem("jwt")
-
-    fetch(baseURL + '/api/feed_cards', {
-      type: "GET",
-      headers: {
-        'Authorization': token
-      }
-    }).then(result => result.json()).then((result) => {
-      return this.setState({
-        feed: result
+    if (this.state.currentUser) {
+      fetch(baseURL + '/feed_cards', {
+        type: "GET",
+      }).then(result => result.json()).then((result) => {
+        return this.setState({
+          feed: result
+        })
       })
-    })
-      .catch(err => console.error(err))
+        .catch(err => console.error(err))
+    }
   }
   handleDelete(deletedFeed_card) {
     let token = "Bearer " + localStorage.getItem("jwt")
@@ -109,12 +106,6 @@ class App extends Component {
           return { feed }
         })
       }).catch(error => console.log(error))
-  }
-
-  handleLogin(user) {
-    this.setState({
-      currentUser: user
-    })
   }
   handleUpdate(event, formInputs) {
     event.preventDefault()
@@ -138,57 +129,38 @@ class App extends Component {
     const password = $("#password").val()
     const username = $("#username").val()
     const request = { "auth": { "email": email, "password": password, "username": username } }
-    // console.log(request)
-    fetch(baseURL + "/api/user_token", {
-      body: JSON.stringify(request),
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
+    this.setState({
+      currentUser: {
+        email: email,
+        password: password,
+        username: username,
       }
     })
-      .then(result => result.json())
-      .then(function (result) {
-        localStorage.setItem("jwt", result.jwt)
-      })
-      .then(() => {
-        this.setState({
-          currentUser: {
-            email: email,
-            password: password,
-            username: username,
-          }
-        })
-      })
-      .then(
-        this.getUser(username)
-      )
-      .catch(err => console.error(err))
   }
-  getUser(username) {
-    // let username = this.state.currentUser.username
-    console.log(username)
-    fetch(baseURL + `/users/${username}`, {
-      method: "GET",
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      }
-    })
-  
-  .then(result => result.json())
-      .then(jsonedUser => {
-        return this.setState({
-          currentUser : {
-            email: jsonedUser.email,
-            password: jsonedUser.password,
-            username: jsonedUser.username,
-            id : jsonedUser.id
-          } 
-        })
-      })
-      .catch(err => console.error(err))
-  }
+  // getUser(username) {
+  //   // let username = this.state.currentUser.username
+  //   console.log(username)
+  //   fetch(baseURL + `/users/${username}`, {
+  //     method: "GET",
+  //     headers: {
+  //       'Accept': 'application/json, text/plain, */*',
+  //       'Content-Type': 'application/json'
+  //     }
+  //   })
+
+  //     .then(result => result.json())
+  //     .then(jsonedUser => {
+  //       return this.setState({
+  //         currentUser: {
+  //           email: jsonedUser.email,
+  //           password: jsonedUser.password,
+  //           username: jsonedUser.username,
+  //           id: jsonedUser.id
+  //         }
+  //       })
+  //     })
+  //     .catch(err => console.error(err))
+  // }
   logout() {
     localStorage.setItem("jwt", "")
     this.setState({
