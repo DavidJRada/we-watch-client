@@ -15,7 +15,8 @@ class Form extends React.Component {
             content: '',
             subscribed: false,
             likes: 0,
-            user_id: 1
+            user_id: 1,
+            id: 0
 
         }
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -41,7 +42,7 @@ class Form extends React.Component {
                     username: this.props.currentUser.username
                 }
             })
-        
+
         }
     }
     handleChange(event) {
@@ -58,6 +59,7 @@ class Form extends React.Component {
                 subscribed: this.state.subscribed,
                 likes: this.state.likes,
                 user: this.state.currentUser.username,
+                id: this.state.id
             }
         )
         this.setState({
@@ -71,50 +73,51 @@ class Form extends React.Component {
         console.log(this.state.currentUser.username)
     }
     render() {
-// console.log(this.props.currentUser)
+        // console.log(this.props.currentUser)
         return (
-            <form onSubmit={this.handleSubmit}>
-                <Input
-                    handleChange={this.handleChange}
-                    name={'img'}
-                    placeholder={'img'}
-                    type={'text'}
-                    value={this.state.img}
-                    id={'img'}
-                />
-                <Input
-                    handleChange={this.handleChange}
-                    name={'title'}
-                    placeholder={'title'}
-                    type={'text'}
-                    value={this.state.title}
-                    id={'title'}
-                />
-                <Input
-                    handleChange={this.handleChange}
-                    name={'content'}
-                    placeholder={'content'}
-                    type={'text'}
-                    value={this.state.content}
-                    id={'content'}
-                />
-                <Input
-                    handleChange={this.handleChange}
-                    name={'subscribed'}
-                    placeholder={'subscribed'}
-                    type={'boolean'}
-                    value={this.state.subscribed}
-                    id={'subscribed'}
-                />
-                <Input
-                    handleChange={this.handleChange}
-                    name={'likes'}
-                    placeholder={'likes'}
-                    type={'number'}
-                    value={this.state.likes}
-                    id={'likes'}
-                />
-                {/* <Input
+            <div className='container'>
+                <form onSubmit={this.handleSubmit}>
+                    <Input
+                        handleChange={this.handleChange}
+                        name={'img'}
+                        placeholder={'img'}
+                        type={'text'}
+                        value={this.state.img}
+                        id={'img'}
+                    />
+                    <Input
+                        handleChange={this.handleChange}
+                        name={'title'}
+                        placeholder={'title'}
+                        type={'text'}
+                        value={this.state.title}
+                        id={'title'}
+                    />
+                    <Input
+                        handleChange={this.handleChange}
+                        name={'content'}
+                        placeholder={'content'}
+                        type={'text'}
+                        value={this.state.content}
+                        id={'content'}
+                    />
+                    <Input
+                        handleChange={this.handleChange}
+                        name={'subscribed'}
+                        placeholder={'subscribed'}
+                        type={'boolean'}
+                        value={this.state.subscribed}
+                        id={'subscribed'}
+                    />
+                    <Input
+                        handleChange={this.handleChange}
+                        name={'likes'}
+                        placeholder={'likes'}
+                        type={'number'}
+                        value={this.state.likes}
+                        id={'likes'}
+                    />
+                    {/* <Input
                     handleChange={this.handleChange}
                     name={'user_id'}
                     placeholder={'user_id'}
@@ -122,9 +125,11 @@ class Form extends React.Component {
                     value={this.state.user_id}
                     id={'user_id'}
                 /> */}
-                <input type='submit' value={this.props.feed_card ? "update this Post" : "add this Post"} />
-            </form>
+                    <input type='submit' value={this.props.feed_card ? "update this Post" : "add this Post"} />
+                </form>
+            </div>
         )
+
     }
 }
 

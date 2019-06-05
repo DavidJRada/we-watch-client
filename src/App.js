@@ -73,20 +73,25 @@ class App extends Component {
   componentDidMount() {
     if (this.state.currentUser) {
       this.getFeed()
+      this.setState({
+        currentUser: {
+          username: localStorage.getItem("username")
+        }
+      })
     }
   }
 
   getFeed() {
     // if (this.state.currentUser) {
-      fetch(baseURL + '/feed_cards', {
-        type: "GET",
-      }).then(result => result.json()).then((result) => {
-        return this.setState({
-          feed: result
-        })
+    fetch(baseURL + '/feed_cards', {
+      type: "GET",
+    }).then(result => result.json()).then((result) => {
+      return this.setState({
+        feed: result
       })
-        .catch(err => console.error(err))
-    
+    })
+      .catch(err => console.error(err))
+
   }
   handleDelete(deletedFeed_card) {
     // let token = "Bearer " + localStorage.getItem("jwt")
@@ -112,7 +117,7 @@ class App extends Component {
 
     // let token = "Bearer " + localStorage.getItem("jwt")
 
-    fetch(baseURL + `/api/feed_cards/${formInputs.id}`, {
+    fetch(baseURL + `/feed_cards/${formInputs.id}`, {
       body: JSON.stringify(formInputs),
       method: 'PUT',
       headers: {
@@ -122,7 +127,9 @@ class App extends Component {
       }
     }).then(updatedFeed_card => {
       this.getFeed()
-    }).catch(error => console.error(error))
+    })
+      .catch(error => console.error(error))
+      
   }
   login() {
     const email = $("#email").val()
@@ -136,6 +143,8 @@ class App extends Component {
         username: username,
       }
     })
+
+    localStorage.setItem("username", username)
   }
   // getUser(username) {
   //   // let username = this.state.currentUser.username
@@ -162,7 +171,7 @@ class App extends Component {
   //     .catch(err => console.error(err))
   // }
   logout() {
-    localStorage.setItem("jwt", "")
+    localStorage.setItem("username", "")
     this.setState({
       user: {},
     })

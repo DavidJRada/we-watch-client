@@ -40,12 +40,12 @@ class FeedCard extends Component {
     // }
     render() {
         // const { feed_card, handleDelete, handleUpdate } = props
-        console.log(this.props.feed_card)
+        // console.log(this.props.feed_card)
         return (
             <div className='card'>
 
                 {this.state.formVisible ?
-                    <Form feed_card={this.props.feed_card} handleUpdate={this.props.handleUpdate} /> :
+                    <Form feed_card={this.props.feed_card} handleSubmit={this.props.handleUpdate} /> :
                     <>
                         <div className='card-content'>
 
@@ -53,7 +53,7 @@ class FeedCard extends Component {
                             <h3>{this.props.feed_card.user}</h3>
                             <span className='card-title'>{this.props.feed_card.title}</span>
                             <p>{this.props.feed_card.content}</p>
-                            <p>{this.props.feed_card.subscribed}</p>
+                            {/* <p>{this.props.feed_card.subscribed}</p> */}
                             <p>{this.props.feed_card.likes}</p>
 
                         </div>
