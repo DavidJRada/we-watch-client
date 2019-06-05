@@ -40,7 +40,7 @@ class App extends Component {
     }
     this.login = this.login.bind(this)
     this.logout = this.logout.bind(this)
-    this.handleLogin = this.handleLogin.bind(this)
+    // this.handleLogin = this.handleLogin.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
     this.getFeed = this.getFeed.bind(this)
     this.getUser = this.getUser.bind(this)
@@ -61,7 +61,7 @@ class App extends Component {
       }
     })
       .then(createdFeed_card => {
-        return createdFeed_card.json().then(console.log(createdFeed_card))
+        return createdFeed_card.json()
 
       })
       .then(jsonedFeed_card => {
@@ -70,14 +70,14 @@ class App extends Component {
         })
       }).catch(error => console.error(error))
   }
+  // componentDidMount() {
+  //   this.getFeed()
+  // }
 
-  componentDidMount() {
-    this.getFeed()
-  }
 
   getFeed() {
     let token = "Bearer " + localStorage.getItem("jwt")
-
+    console.log(token)
     fetch(baseURL + '/api/feed_cards', {
       type: "GET",
       headers: {
@@ -110,12 +110,6 @@ class App extends Component {
         })
       }).catch(error => console.log(error))
   }
-
-  handleLogin(user) {
-    this.setState({
-      currentUser: user
-    })
-  }
   handleUpdate(event, formInputs) {
     event.preventDefault()
 
@@ -138,7 +132,7 @@ class App extends Component {
     const password = $("#password").val()
     const username = $("#username").val()
     const request = { "auth": { "email": email, "password": password, "username": username } }
-    // console.log(request)
+    console.log(request)
     fetch(baseURL + "/api/user_token", {
       body: JSON.stringify(request),
       method: 'POST',
@@ -160,13 +154,14 @@ class App extends Component {
           }
         })
       })
-      .then(
-        this.getUser(username)
+      .then(this.getFeed()
+      )
+      .then(this.getUser()
       )
       .catch(err => console.error(err))
   }
-  getUser(username) {
-    // let username = this.state.currentUser.username
+  getUser() {
+    let username = this.state.currentUser.username
     console.log(username)
     fetch(baseURL + `/users/${username}`, {
       method: "GET",
@@ -175,22 +170,22 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
-  
-  .then(result => result.json())
+
+      .then(result => result.json())
       .then(jsonedUser => {
         return this.setState({
-          currentUser : {
+          currentUser: {
             email: jsonedUser.email,
             password: jsonedUser.password,
             username: jsonedUser.username,
-            id : jsonedUser.id
-          } 
+            id: jsonedUser.id
+          }
         })
       })
       .catch(err => console.error(err))
   }
   logout() {
-    localStorage.setItem("jwt", "")
+    // localStorage.setItem("jwt", "")
     this.setState({
       user: {},
     })
@@ -204,8 +199,8 @@ class App extends Component {
           {this.state.currentUser.username ?
             <>
               <Left />
-              <Feed feed={this.state.feed} handleDelete={this.handleDelete} currentUser={this.state.currentUser} handleUpdate={this.handleUpdate} />
-              <Right handleSubmit={this.handleAdd} />
+              <Feed feed={this.state.feed} handleDelete={this.handleDelete} currentUser={this.state.currentUser} handleUpdate={this.handleUpdate} getFeed={this.getFeed} />
+              <Right handleSubmit={this.handleAdd} currentUser={this.state.currentUser} />
               <Footer />
             </>
             :

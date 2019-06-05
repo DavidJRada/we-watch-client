@@ -29,7 +29,7 @@ class FeedCard extends Component {
                         <div className='card-content'>
 
                             <img src={this.props.feed_card.img} alt="profile"></img>
-                            {/* <h3>{this.props.feed_card.user.username}</h3> */}
+                            {/* <h3>{this.props.feed_card.user}</h3> */}
                             <span className='card-title'>{this.props.feed_card.title}</span>
                             <p>{this.props.feed_card.content}</p>
                             <p>{this.props.feed_card.subscribed}</p>

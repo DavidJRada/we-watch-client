@@ -4,7 +4,7 @@ import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 
 const Right = props => {
-  const { handleSubmit, currentUser,  } = props
+  const { handleSubmit, currentUser } = props
   return (
     <div className='right'>
       <Form handleSubmit={handleSubmit} currentUser={currentUser} />

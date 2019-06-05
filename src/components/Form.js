@@ -10,7 +10,7 @@ class Form extends React.Component {
             content: '',
             subscribed: false,
             likes: 0,
-            user_id: 0
+            user_id: this.props.currentUser.id
 
         }
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -28,6 +28,11 @@ class Form extends React.Component {
                 id: this.props.feed_card.id
             })
         }
+        if (this.props.currentUser) {
+            this.setState({
+                user_id: this.props.currentUser.id
+            })
+        }
     }
     handleChange(event) {
         this.setState({ [event.target.id]: event.target.value })
@@ -42,17 +47,17 @@ class Form extends React.Component {
                 content: this.state.content,
                 subscribed: this.state.subscribed,
                 likes: this.state.likes,
-                user_id: this.state.user_id
+                user_id: this.props.currentUser.id
             }
         )
-        this.setState({
-            img: '',
-            title: '',
-            content: '',
-            subscribed: false,
-            likes: 0,
-            user_id: 0
-        })
+        // this.setState({
+        //     img: '',
+        //     title: '',
+        //     content: '',
+        //     subscribed: false,
+        //     likes: 0,
+        //     user_id: 0
+        // })
     }
     render() {
 
@@ -98,14 +103,14 @@ class Form extends React.Component {
                     value={this.state.likes}
                     id={'likes'}
                 />
-                <Input
+                {/* <Input
                     handleChange={this.handleChange}
                     name={'user_id'}
                     placeholder={'user_id'}
                     type={'number'}
                     value={this.state.user_id}
                     id={'user_id'}
-                />
+                /> */}
                 <input type='submit' value={this.props.feed_card ? "update this Post" : "add this Post"} />
             </form>
         )
