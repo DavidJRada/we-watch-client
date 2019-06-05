@@ -71,11 +71,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getFeed()
+    if (this.state.currentUser) {
+      this.getFeed()
+    }
   }
 
   getFeed() {
-    if (this.state.currentUser) {
+    // if (this.state.currentUser) {
       fetch(baseURL + '/feed_cards', {
         type: "GET",
       }).then(result => result.json()).then((result) => {
@@ -84,7 +86,7 @@ class App extends Component {
         })
       })
         .catch(err => console.error(err))
-    }
+    
   }
   handleDelete(deletedFeed_card) {
     // let token = "Bearer " + localStorage.getItem("jwt")
@@ -108,7 +110,7 @@ class App extends Component {
   handleUpdate(event, formInputs) {
     event.preventDefault()
 
-    let token = "Bearer " + localStorage.getItem("jwt")
+    // let token = "Bearer " + localStorage.getItem("jwt")
 
     fetch(baseURL + `/api/feed_cards/${formInputs.id}`, {
       body: JSON.stringify(formInputs),
@@ -116,7 +118,7 @@ class App extends Component {
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'Content-type': 'application/json',
-        "Authorization": token
+        // "Authorization": token
       }
     }).then(updatedFeed_card => {
       this.getFeed()
@@ -126,7 +128,7 @@ class App extends Component {
     const email = $("#email").val()
     const password = $("#password").val()
     const username = $("#username").val()
-    const request = { "auth": { "email": email, "password": password, "username": username } }
+    // const request = { "auth": { "email": email, "password": password, "username": username } }
     this.setState({
       currentUser: {
         email: email,

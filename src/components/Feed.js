@@ -8,6 +8,7 @@ import 'materialize-css/dist/css/materialize.min.css';
 
 const Feed = props => {
   const { feed, handleDelete, handleUpdate, currentUser } = props
+  // console.log(feed)
   return (
     <div className='feed'>
       <div className="container" >

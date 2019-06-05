@@ -21,7 +21,7 @@ class Form extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
-    componentDidMount() {
+    componentWillMount() {
         if (this.props.feed_card) {
             this.setState({
                 img: this.props.feed_card.img,
@@ -57,8 +57,7 @@ class Form extends React.Component {
                 content: this.state.content,
                 subscribed: this.state.subscribed,
                 likes: this.state.likes,
-                username: this.state.currentUser.username,
-                user_id: 1
+                user: this.state.currentUser.username,
             }
         )
         this.setState({
@@ -69,6 +68,7 @@ class Form extends React.Component {
             likes: 0,
             user_id: 0
         })
+        console.log(this.state.currentUser.username)
     }
     render() {
 // console.log(this.props.currentUser)
