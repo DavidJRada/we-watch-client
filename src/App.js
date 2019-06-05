@@ -50,18 +50,17 @@ class App extends Component {
   handleAdd(event, formInputs) {
     event.preventDefault()
     console.log(formInputs)
-    let token = "Bearer " + localStorage.getItem("jwt")
-    fetch(baseURL + "/api/feed_cards", {
+    // let token = "Bearer " + localStorage.getItem("jwt")
+    fetch(baseURL + "/feed_cards", {
       body: JSON.stringify(formInputs),
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json',
-        "Authorization": token
+        'Content-Type': 'application/json'
       }
     })
       .then(createdFeed_card => {
-        return createdFeed_card.json().then(console.log(createdFeed_card))
+        return createdFeed_card.json()
 
       })
       .then(jsonedFeed_card => {
@@ -88,14 +87,13 @@ class App extends Component {
     }
   }
   handleDelete(deletedFeed_card) {
-    let token = "Bearer " + localStorage.getItem("jwt")
+    // let token = "Bearer " + localStorage.getItem("jwt")
 
-    fetch(baseURL + `/api/feed_cards/${deletedFeed_card.id}`, {
+    fetch(baseURL + `/feed_cards/${deletedFeed_card.id}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'Content-type': 'application/json',
-        "Authorization": token
       }
     })
       .then(json => {
@@ -168,7 +166,7 @@ class App extends Component {
     })
   }
   render() {
-    console.log(this.state.currentUser)
+    // console.log(this.state.currentUser)
     return (
       <>
         <Nav currentUser={this.state.currentUser} logout={this.logout} />
@@ -177,7 +175,7 @@ class App extends Component {
             <>
               <Left />
               <Feed feed={this.state.feed} handleDelete={this.handleDelete} currentUser={this.state.currentUser} handleUpdate={this.handleUpdate} />
-              <Right handleSubmit={this.handleAdd} />
+              <Right handleSubmit={this.handleAdd} currentUser={this.state.currentUser} />
               <Footer />
             </>
             :
