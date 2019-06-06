@@ -15,7 +15,7 @@ h1 {
 .layout {
   display: grid;
   grid-template-areas: "nav nav nav" "left feed right" "footer footer footer";
-  grid-template-columns: 20% 1fr 20%;
+  grid-template-columns: 25% 1fr 20%;
   grid-template-rows: auto 1fr 200px;
   grid-gap: 10px;
   height: 100vh;
@@ -99,7 +99,46 @@ body {
   }
 }
 
+
+@media (max-width: 768px) {
+  .container {
+    /* grid-template-areas: "nav" "feed" "right" "footer"; */
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 
+    /* Header */
+    minmax(200px, auto)/* Nav */
+    1fr/* daters */
+    minmax(75px, auto)/* Sidebar */
+    auto;
+    /* Footer */
+  }
+  .left, .right {
+    margin: 0;
+  }
+  .left {
+    padding: 20px 20%
+  }
+}
 img {
   height: 150px;
   width: 15 0px;
+}
+
+
+.carousel {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+.carousel div {
+  height: 3000px;
+  width: 100%;
+}
+/* .carousel img {
+  height: 200px;
+  padding: 2px;
+} */
+
+#root {
+  height: 100vh;
 }

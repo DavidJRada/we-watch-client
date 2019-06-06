@@ -4,6 +4,8 @@ import Form from './Form'
 import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 
+
+
 class FeedCard extends Component {
     constructor(props) {
         super(props)
@@ -13,13 +15,15 @@ class FeedCard extends Component {
         this.toggleForm = this.toggleForm.bind(this)
     }
     toggleForm() {
-        this.setState({
-            formVisible: !this.state.formVisible
-        })
-    }
+        if(this.props.feed_card) {
+            this.setState({
+                formVisible: !this.state.formVisible
+            })
+        }       
 
+    }
     render() {
-        // const { feed_card, handleDelete, handleUpdate } = props
+        // console.log(this.props.feed_card)
         return (
             <div className='card'>
 
@@ -29,10 +33,11 @@ class FeedCard extends Component {
                         <div className='card-content'>
 
                             <img src={this.props.feed_card.img} alt="profile"></img>
-                            {/* <h3>{this.props.feed_card.user}</h3> */}
+                            <h3>{this.props.feed_card.user}</h3>
+
                             <span className='card-title'>{this.props.feed_card.title}</span>
                             <p>{this.props.feed_card.content}</p>
-                            <p>{this.props.feed_card.subscribed}</p>
+                            {/* <p>{this.props.feed_card.subscribed}</p> */}
                             <p>{this.props.feed_card.likes}</p>
 
                         </div>

@@ -36,28 +36,28 @@ class App extends Component {
         subscribed: false,
         likes: 0,
         user_id: 0
-      }
+      },
+      updatedFeed_card: {}
     }
     this.login = this.login.bind(this)
     this.logout = this.logout.bind(this)
-    // this.handleLogin = this.handleLogin.bind(this)
+
     this.handleAdd = this.handleAdd.bind(this)
     this.getFeed = this.getFeed.bind(this)
-    this.getUser = this.getUser.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
   }
 
   handleAdd(event, formInputs) {
     event.preventDefault()
     console.log(formInputs)
-    let token = "Bearer " + localStorage.getItem("jwt")
-    fetch(baseURL + "/api/feed_cards", {
+    // let token = "Bearer " + localStorage.getItem("jwt")
+    fetch(baseURL + "/feed_cards", {
       body: JSON.stringify(formInputs),
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json',
-        "Authorization": token
+        'Content-Type': 'application/json'
       }
     })
       .then(createdFeed_card => {
@@ -75,30 +75,38 @@ class App extends Component {
   // }
 
 
+  componentDidMount() {
+    this.getFeed()
+    if (this.state.currentUser) {
+      this.setState({
+        currentUser: {
+          username: localStorage.getItem("username")
+        }
+      })
+    }
+  }
+  
   getFeed() {
-    let token = "Bearer " + localStorage.getItem("jwt")
-    console.log(token)
-    fetch(baseURL + '/api/feed_cards', {
+    console.log('hi')
+    fetch(baseURL + '/feed_cards', {
+
       type: "GET",
-      headers: {
-        'Authorization': token
-      }
     }).then(result => result.json()).then((result) => {
-      return this.setState({
+      this.setState({
         feed: result
       })
     })
       .catch(err => console.error(err))
+
   }
   handleDelete(deletedFeed_card) {
-    let token = "Bearer " + localStorage.getItem("jwt")
+    // let token = "Bearer " + localStorage.getItem("jwt")
 
-    fetch(baseURL + `/api/feed_cards/${deletedFeed_card.id}`, {
+    fetch(baseURL + `/feed_cards/${deletedFeed_card.id}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'Content-type': 'application/json',
-        "Authorization": token
       }
     })
       .then(json => {
@@ -112,86 +120,55 @@ class App extends Component {
   }
   handleUpdate(event, formInputs) {
     event.preventDefault()
-
-    let token = "Bearer " + localStorage.getItem("jwt")
-
-    fetch(baseURL + `/api/feed_cards/${formInputs.id}`, {
+    // console.log(this)
+    fetch(baseURL + `/feed_cards/${formInputs.id}`, {
       body: JSON.stringify(formInputs),
       method: 'PUT',
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'Content-type': 'application/json',
-        "Authorization": token
       }
-    }).then(updatedFeed_card => {
-      this.getFeed()
-    }).catch(error => console.error(error))
+    })
+      .then((updatedFeed_card) => {
+        updatedFeed_card.json()
+        let id = updatedFeed_card.id
+        console.log(updatedFeed_card)})
+        // this.state.feed.splice())
+      
+      // .then(updatedFeed_card => this.setState({
+      //   updatedFeed_card: updatedFeed_card
+      // }))
+      .catch(error => console.error(error))
   }
+
   login() {
     const email = $("#email").val()
     const password = $("#password").val()
     const username = $("#username").val()
-    const request = { "auth": { "email": email, "password": password, "username": username } }
-    console.log(request)
-    fetch(baseURL + "/api/user_token", {
-      body: JSON.stringify(request),
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(result => result.json())
-      .then(function (result) {
-        localStorage.setItem("jwt", result.jwt)
-      })
-      .then(() => {
-        this.setState({
-          currentUser: {
-            email: email,
-            password: password,
-            username: username,
-          }
-        })
-      })
-      .then(this.getFeed()
-      )
-      .then(this.getUser()
-      )
-      .catch(err => console.error(err))
-  }
-  getUser() {
-    let username = this.state.currentUser.username
-    console.log(username)
-    fetch(baseURL + `/users/${username}`, {
-      method: "GET",
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
+
+    // const request = { "auth": { "email": email, "password": password, "username": username } }
+    this.setState({
+      currentUser: {
+        email: email,
+        password: password,
+        username: username,
       }
     })
 
-      .then(result => result.json())
-      .then(jsonedUser => {
-        return this.setState({
-          currentUser: {
-            email: jsonedUser.email,
-            password: jsonedUser.password,
-            username: jsonedUser.username,
-            id: jsonedUser.id
-          }
-        })
-      })
-      .catch(err => console.error(err))
+    localStorage.setItem("username", username)
+
   }
+
   logout() {
-    // localStorage.setItem("jwt", "")
+
+    localStorage.setItem("username", "")
+
     this.setState({
       user: {},
     })
   }
   render() {
-    console.log(this.state.currentUser)
+    // console.log(this.state.feed)
     return (
       <>
         <Nav currentUser={this.state.currentUser} logout={this.logout} />
@@ -199,7 +176,8 @@ class App extends Component {
           {this.state.currentUser.username ?
             <>
               <Left />
-              <Feed feed={this.state.feed} handleDelete={this.handleDelete} currentUser={this.state.currentUser} handleUpdate={this.handleUpdate} getFeed={this.getFeed} />
+              <Feed feed={this.state.feed} handleDelete={this.handleDelete} currentUser={this.state.currentUser} handleUpdate={this.handleUpdate} />
+
               <Right handleSubmit={this.handleAdd} currentUser={this.state.currentUser} />
               <Footer />
             </>
