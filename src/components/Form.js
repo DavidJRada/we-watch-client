@@ -82,6 +82,7 @@ class Form extends React.Component {
         // console.log(this.props.currentUser)
         return (
             <div className='container'>
+                <Omdb />
                 <form onSubmit={this.handleSubmit}>
                     {/* <Input
                         handleChange={this.handleChange}
@@ -110,7 +111,7 @@ class Form extends React.Component {
 
                     <input type='submit' value={this.props.feed_card ? "update this Post" : "add this Post"} />
                 </form>
-                {/* <Omdb /> */}
+                
             </div>
 
         )

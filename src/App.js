@@ -51,7 +51,7 @@ class App extends Component {
   handleAdd(event, formInputs) {
     event.preventDefault()
     console.log(formInputs)
-    // let token = "Bearer " + localStorage.getItem("jwt")
+
     fetch(baseURL + "/feed_cards", {
       body: JSON.stringify(formInputs),
       method: 'POST',
