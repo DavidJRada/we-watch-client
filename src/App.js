@@ -41,6 +41,7 @@ class App extends Component {
     }
     this.login = this.login.bind(this)
     this.logout = this.logout.bind(this)
+
     this.handleAdd = this.handleAdd.bind(this)
     this.getFeed = this.getFeed.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
@@ -69,6 +70,10 @@ class App extends Component {
         })
       }).catch(error => console.error(error))
   }
+  // componentDidMount() {
+  //   this.getFeed()
+  // }
+
 
   componentDidMount() {
     this.getFeed()
@@ -84,6 +89,7 @@ class App extends Component {
   getFeed() {
     console.log('hi')
     fetch(baseURL + '/feed_cards', {
+
       type: "GET",
     }).then(result => result.json()).then((result) => {
       this.setState({
@@ -139,6 +145,7 @@ class App extends Component {
     const email = $("#email").val()
     const password = $("#password").val()
     const username = $("#username").val()
+
     // const request = { "auth": { "email": email, "password": password, "username": username } }
     this.setState({
       currentUser: {
@@ -149,10 +156,13 @@ class App extends Component {
     })
 
     localStorage.setItem("username", username)
+
   }
 
   logout() {
+
     localStorage.setItem("username", "")
+
     this.setState({
       user: {},
     })
@@ -167,6 +177,7 @@ class App extends Component {
             <>
               <Left />
               <Feed feed={this.state.feed} handleDelete={this.handleDelete} currentUser={this.state.currentUser} handleUpdate={this.handleUpdate} />
+
               <Right handleSubmit={this.handleAdd} currentUser={this.state.currentUser} />
               <Footer />
             </>

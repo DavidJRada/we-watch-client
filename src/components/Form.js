@@ -15,8 +15,10 @@ class Form extends React.Component {
             content: '',
             subscribed: false,
             likes: 0,
+
             user_id: 1,
             id: 0
+
 
         }
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -36,12 +38,14 @@ class Form extends React.Component {
         }
         if (this.props.currentUser) {
             this.setState({
+
                 currentUser: {
                     email: this.props.currentUser.email,
                     password: this.props.currentUser.password,
                     username: this.props.currentUser.username
                 }
             })
+
 
         }
     }
@@ -58,6 +62,7 @@ class Form extends React.Component {
                 content: this.state.content,
                 subscribed: this.state.subscribed,
                 likes: this.state.likes,
+
                 user: this.state.currentUser.username,
                 id: this.state.id
             }
@@ -71,6 +76,7 @@ class Form extends React.Component {
             user_id: 0
         })
         // console.log(this.state.currentUser.username)
+
     }
     render() {
         // console.log(this.props.currentUser)
@@ -118,6 +124,7 @@ class Form extends React.Component {
                         id={'likes'}
                     />
                     {/* <Input
+
                     handleChange={this.handleChange}
                     name={'user_id'}
                     placeholder={'user_id'}
@@ -128,6 +135,7 @@ class Form extends React.Component {
                     <input type='submit' value={this.props.feed_card ? "update this Post" : "add this Post"} />
                 </form>
             </div>
+
         )
 
     }

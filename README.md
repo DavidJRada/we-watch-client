@@ -3,4 +3,4 @@
 
 Future:
 Get full user authorization using Knock
-Make username on posting populate automatically with logged in user
+Control login functionality with react instead of jquery
