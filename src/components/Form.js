@@ -50,7 +50,7 @@ class Form extends React.Component {
     }
     handleSubmit(event) {
         event.preventDefault()
-        this.props.handleSubmit(
+        this.props.handleUpdate(
             event,
             {
                 img: this.state.img,
@@ -70,7 +70,7 @@ class Form extends React.Component {
             likes: 0,
             user_id: 0
         })
-        console.log(this.state.currentUser.username)
+        // console.log(this.state.currentUser.username)
     }
     render() {
         // console.log(this.props.currentUser)

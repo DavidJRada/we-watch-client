@@ -36,15 +36,15 @@ class App extends Component {
         subscribed: false,
         likes: 0,
         user_id: 0
-      }
+      },
+      updatedFeed_card: {}
     }
     this.login = this.login.bind(this)
     this.logout = this.logout.bind(this)
-    // this.handleLogin = this.handleLogin.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
     this.getFeed = this.getFeed.bind(this)
-    // this.getUser = this.getUser.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
   }
 
   handleAdd(event, formInputs) {
@@ -71,8 +71,8 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.getFeed()
     if (this.state.currentUser) {
-      this.getFeed()
       this.setState({
         currentUser: {
           username: localStorage.getItem("username")
@@ -80,13 +80,13 @@ class App extends Component {
       })
     }
   }
-
+  
   getFeed() {
-    // if (this.state.currentUser) {
+    console.log('hi')
     fetch(baseURL + '/feed_cards', {
       type: "GET",
     }).then(result => result.json()).then((result) => {
-      return this.setState({
+      this.setState({
         feed: result
       })
     })
@@ -114,23 +114,27 @@ class App extends Component {
   }
   handleUpdate(event, formInputs) {
     event.preventDefault()
-
-    // let token = "Bearer " + localStorage.getItem("jwt")
-
+    // console.log(this)
     fetch(baseURL + `/feed_cards/${formInputs.id}`, {
       body: JSON.stringify(formInputs),
       method: 'PUT',
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'Content-type': 'application/json',
-        // "Authorization": token
       }
-    }).then(updatedFeed_card => {
-      this.getFeed()
     })
-      .catch(error => console.error(error))
+      .then((updatedFeed_card) => {
+        updatedFeed_card.json()
+        let id = updatedFeed_card.id
+        console.log(updatedFeed_card)})
+        // this.state.feed.splice())
       
+      // .then(updatedFeed_card => this.setState({
+      //   updatedFeed_card: updatedFeed_card
+      // }))
+      .catch(error => console.error(error))
   }
+
   login() {
     const email = $("#email").val()
     const password = $("#password").val()
@@ -146,30 +150,7 @@ class App extends Component {
 
     localStorage.setItem("username", username)
   }
-  // getUser(username) {
-  //   // let username = this.state.currentUser.username
-  //   console.log(username)
-  //   fetch(baseURL + `/users/${username}`, {
-  //     method: "GET",
-  //     headers: {
-  //       'Accept': 'application/json, text/plain, */*',
-  //       'Content-Type': 'application/json'
-  //     }
-  //   })
 
-  //     .then(result => result.json())
-  //     .then(jsonedUser => {
-  //       return this.setState({
-  //         currentUser: {
-  //           email: jsonedUser.email,
-  //           password: jsonedUser.password,
-  //           username: jsonedUser.username,
-  //           id: jsonedUser.id
-  //         }
-  //       })
-  //     })
-  //     .catch(err => console.error(err))
-  // }
   logout() {
     localStorage.setItem("username", "")
     this.setState({
@@ -177,7 +158,7 @@ class App extends Component {
     })
   }
   render() {
-    // console.log(this.state.currentUser)
+    // console.log(this.state.feed)
     return (
       <>
         <Nav currentUser={this.state.currentUser} logout={this.logout} />

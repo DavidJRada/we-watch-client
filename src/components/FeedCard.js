@@ -13,39 +13,22 @@ class FeedCard extends Component {
             formVisible: false,
         }
         this.toggleForm = this.toggleForm.bind(this)
-        // this.getInfo = this.getInfo.bind(this)
     }
     toggleForm() {
-        this.setState({
-            formVisible: !this.state.formVisible
-        })
-    }
-    // getInfo() {
-    //     if (this.props.feed_card && this.props.currentUser) {
-    //         this.setState({
-    //             currentUser: {
-    //                 email:  this.props.currentUser.email ,
-    //                 password: this.props.currentUser.password,
-    //                 username: this.props.currentUser.username
-    //             },
-    //             img: this.props.feed_card.img,
-    //             title: this.props.feed_card.title,
-    //             content: this.props.feed_card.content,
-    //             subscribed: this.props.feed_card.subscribed,
-    //             likes: this.props.feed_card.likes,
-    //             user_id: 1
-    //         })
-    //     }
+        if(this.props.feed_card) {
+            this.setState({
+                formVisible: !this.state.formVisible
+            })
+        }       
 
-    // }
+    }
     render() {
-        // const { feed_card, handleDelete, handleUpdate } = props
         // console.log(this.props.feed_card)
         return (
             <div className='card'>
 
                 {this.state.formVisible ?
-                    <Form feed_card={this.props.feed_card} handleSubmit={this.props.handleUpdate} /> :
+                    <Form feed_card={this.props.feed_card} handleUpdate={this.props.handleUpdate} /> :
                     <>
                         <div className='card-content'>
 
