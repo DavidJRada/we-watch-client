@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css?family=Roboto|Stylish&display=swap');
 :root {
   --black: rgba(0, 0, 0, 1);
@@ -23,6 +22,7 @@ h1 {
 
 nav {
   grid-area: nav;
+  height: 10vh;
   background-color: var(--oasis-green);
 }
 
@@ -46,10 +46,11 @@ nav {
 footer {
   grid-area: footer;
   margin: 0.5rem;
+  height: 10vh;
   background-color: var(--oasis-blue);
 }
 
-.notice {
+.feed_card {
   border: 5px solid var(--shady-sand);
   padding: 5px;
   font-family: 'Stylish', sans-serif;
@@ -99,12 +100,11 @@ body {
   }
 }
 
-
 @media (max-width: 768px) {
   .container {
-    /* grid-template-areas: "nav" "feed" "right" "footer"; */
+    grid-template-areas: "nav" "feed" "right" "footer";
     grid-template-columns: 1fr;
-    grid-template-rows: auto 
+    grid-template-rows: auto
     /* Header */
     minmax(200px, auto)/* Nav */
     1fr/* daters */
@@ -118,27 +118,52 @@ body {
   .left {
     padding: 20px 20%
   }
-}
-img {
-  height: 150px;
-  width: 15 0px;
+  .topOfCard {
+    justify-content: stretch;
+  }
+  .topOfCard {
+    font-size: 10;
+  }
 }
 
+.topOfCard {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-evenly;
+}
+
+.topOfCard * {
+  margin: 10px;
+  padding: 0;
+  text-align: center;
+}
+
+.card-action {
+  display: flex;
+  justify-content: space-between;
+}
+
+.topOfCard img {
+  height: 20%;
+  width: 20%;
+  border-radius: 50px;
+}
 
 .carousel {
   display: flex;
   justify-content: center;
   padding: 10px;
 }
+
 .carousel div {
   height: 3000px;
   width: 100%;
+}
+
+.login {
+  padding-top: 15px;
 }
 /* .carousel img {
   height: 200px;
   padding: 2px;
 } */
-
-#root {
-  height: 100vh;
-}

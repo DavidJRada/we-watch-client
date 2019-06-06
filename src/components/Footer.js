@@ -11,7 +11,9 @@ class Footer extends Component {
     }
     render() {
       return (
-          <footer>Footer</footer>
+          <footer>
+            <div className='container center-align'>
+              Made by David</div></footer>
       );
     }
   }

@@ -37,7 +37,7 @@ const Container = styled.div`
     // border: 1px red solid;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 80vh;
 `;
 
 const Header = styled.header`
@@ -60,15 +60,8 @@ class Feed extends React.Component {
     this.state = {
       feed: []
     }
-    // this.rowRenderer = this.rowRenderer.bind(this)
   }
-  // rowRenderer({ index, isScrolling, key, style }) {
-  //   return (
-  //     <div key={key} style={style}>
-  //       <div>{this.props.feed[index].title}</div>
-  //     </div>
-  //   )
-  // }
+
   componentDidMount() {
     this.setState({
       feed: this.props.feed
@@ -80,12 +73,11 @@ class Feed extends React.Component {
       <div className='feed' >
         <div className="container" >
           <Container>
-            <h3>What are we watching?</h3>
             <Content>
               <AutoSizer>
               {({ width, height }) => (
                         <List
-                            itemSize={475}
+                            itemSize={400}
                             itemCount={this.props.feed.length}
                             width={width}
                             height={height}
@@ -93,7 +85,7 @@ class Feed extends React.Component {
                         {({ index, style }) => (
 
                           <div style={style}>
-                                  <FeedCard feed_card={this.props.feed[index]} handleDelete={this.props.handleDelete} handleUpdate={this.props.handleUpdate} currentUser={this.props.currentUser} />
+                                  <FeedCard feed_card={this.props.feed[index]} handleDelete={this.props.handleDelete} handleSubmit={this.props.handleSubmit} currentUser={this.props.currentUser} />
                                   </div>
                         )}
                         </List>

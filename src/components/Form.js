@@ -1,5 +1,6 @@
 import React from 'react'
 import Input from './Input.js'
+import Omdb from './Omdb'
 
 class Form extends React.Component {
     constructor(props) {
@@ -15,9 +16,7 @@ class Form extends React.Component {
             content: '',
             subscribed: false,
             likes: 0,
-
             user_id: 1,
-            id: 0
 
 
         }
@@ -36,25 +35,26 @@ class Form extends React.Component {
                 id: this.props.feed_card.id
             })
         }
-        if (this.props.currentUser) {
-            this.setState({
 
-                currentUser: {
-                    email: this.props.currentUser.email,
-                    password: this.props.currentUser.password,
-                    username: this.props.currentUser.username
-                }
-            })
+        this.setState({
+
+            currentUser: {
+                email: this.props.currentUser.email,
+                password: this.props.currentUser.password,
+                username: this.props.currentUser.username
+            }
+        })
 
 
-        }
+
     }
     handleChange(event) {
         this.setState({ [event.target.id]: event.target.value })
     }
     handleSubmit(event) {
         event.preventDefault()
-        this.props.handleUpdate(
+        console.log(this.state.currentUser)
+        this.props.handleSubmit(
             event,
             {
                 img: this.state.img,
@@ -62,8 +62,8 @@ class Form extends React.Component {
                 content: this.state.content,
                 subscribed: this.state.subscribed,
                 likes: this.state.likes,
-
                 user: this.state.currentUser.username,
+                user_id: this.state.user_id,
                 id: this.state.id
             }
         )
@@ -83,14 +83,14 @@ class Form extends React.Component {
         return (
             <div className='container'>
                 <form onSubmit={this.handleSubmit}>
-                    <Input
+                    {/* <Input
                         handleChange={this.handleChange}
                         name={'img'}
                         placeholder={'img'}
                         type={'text'}
                         value={this.state.img}
                         id={'img'}
-                    />
+                    /> */}
                     <Input
                         handleChange={this.handleChange}
                         name={'title'}
@@ -107,33 +107,10 @@ class Form extends React.Component {
                         value={this.state.content}
                         id={'content'}
                     />
-                    <Input
-                        handleChange={this.handleChange}
-                        name={'subscribed'}
-                        placeholder={'subscribed'}
-                        type={'boolean'}
-                        value={this.state.subscribed}
-                        id={'subscribed'}
-                    />
-                    <Input
-                        handleChange={this.handleChange}
-                        name={'likes'}
-                        placeholder={'likes'}
-                        type={'number'}
-                        value={this.state.likes}
-                        id={'likes'}
-                    />
-                    {/* <Input
 
-                    handleChange={this.handleChange}
-                    name={'user_id'}
-                    placeholder={'user_id'}
-                    type={'number'}
-                    value={this.state.user_id}
-                    id={'user_id'}
-                /> */}
                     <input type='submit' value={this.props.feed_card ? "update this Post" : "add this Post"} />
                 </form>
+                {/* <Omdb /> */}
             </div>
 
         )

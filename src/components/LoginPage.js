@@ -1,67 +1,17 @@
 import React from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
-// import $ from 'jquery'
-
-// let baseURL = ""
-
-// if (process.env.NODE_ENV === 'development') {
-//   baseURL = 'http://localhost:3001'
-// } else {
-//   baseURL = 'https://we-watch-api.herokuapp.com'
-// }
-
-// class LoginPage extends Component {
-//     constructor(props) {
-//         super(props)
-//         this.state = {
-//             currentUser: ""
-//         }
-//     }
-//     this.login = this.login.bind(this)
-//     this.logout = this.logout.bind(this)
-// }
-// login() {
-//     const email = $("#email").val()
-//     const password = $("#password").val()
-//     const username = $("#username").val()
-//     const request = { "auth": { "email": email, "password": password, "username": username } }
-//     console.log(request)
-
-//     fetch(baseURL + "/api/user_token", {
-//         body: JSON.stringify(request),
-//         method: 'POST',
-//         headers: {
-//             'Accept': 'application/json, text/plain, */*',
-//             'Content-Type': 'application/json'
-//         }
-//     }).then(result => result.json())
-//         .then(function (result) {
-//             localStorage.setItem("jwt", result.jwt)
-//         }).then(() => {
-//             return this.setState({
-//                 currentUser: username
-//             })
-//         }).then(this.props.handleLogin(username))
-//         .catch(err => console.error(err))
-// }
-// logout() {
-//     localStorage.setItem("jwt", "")
-//     localStorage.setItem("username", "")
-
-//     this.setState({
-//         currentUser: "",
-//     })
-// }
-
+import Nav from './Nav'
+import Left from './Left'
+import Right from './Right'
+import Footer from './Footer'
 
 const LoginPage = props => {
     const { login, logout } = props
 
-    return (
+    return ( <>
+        <Left />
         <div className='feed'>
             <div className="container" >
-                 <button
-                    onClick={()=> {logout()}}>Logout</button> 
 
                     <div className='login'>
                         <form>
@@ -89,12 +39,18 @@ const LoginPage = props => {
                                 type="text"
                             />
                         </form>
+                        <div className='card-action'>
                         <button
                             onClick={() => { login() }}>Login</button>
+                             <button
+                            onClick={() => { login() }}>Sign Up</button>
+                            </div>
                     </div>
             </div>
         </div>
-    )
+        <div className='right'></div>
+        <footer></footer>
+    </>)
 }
 
 export default LoginPage

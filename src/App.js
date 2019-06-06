@@ -70,11 +70,6 @@ class App extends Component {
         })
       }).catch(error => console.error(error))
   }
-  // componentDidMount() {
-  //   this.getFeed()
-  // }
-
-
   componentDidMount() {
     this.getFeed()
     if (this.state.currentUser) {
@@ -85,7 +80,7 @@ class App extends Component {
       })
     }
   }
-  
+
   getFeed() {
     console.log('hi')
     fetch(baseURL + '/feed_cards', {
@@ -120,7 +115,7 @@ class App extends Component {
   }
   handleUpdate(event, formInputs) {
     event.preventDefault()
-    // console.log(this)
+    console.log(formInputs)
     fetch(baseURL + `/feed_cards/${formInputs.id}`, {
       body: JSON.stringify(formInputs),
       method: 'PUT',
@@ -131,15 +126,12 @@ class App extends Component {
     })
       .then((updatedFeed_card) => {
         updatedFeed_card.json()
-        let id = updatedFeed_card.id
-        console.log(updatedFeed_card)})
-        // this.state.feed.splice())
-      
-      // .then(updatedFeed_card => this.setState({
-      //   updatedFeed_card: updatedFeed_card
-      // }))
+          .then(updatedFeed_card => this.getFeed()
+          )
+      })
       .catch(error => console.error(error))
   }
+
 
   login() {
     const email = $("#email").val()
@@ -176,7 +168,7 @@ class App extends Component {
           {this.state.currentUser.username ?
             <>
               <Left />
-              <Feed feed={this.state.feed} handleDelete={this.handleDelete} currentUser={this.state.currentUser} handleUpdate={this.handleUpdate} />
+              <Feed feed={this.state.feed} handleDelete={this.handleDelete} currentUser={this.state.currentUser} handleSubmit={this.handleUpdate} />
 
               <Right handleSubmit={this.handleAdd} currentUser={this.state.currentUser} />
               <Footer />
