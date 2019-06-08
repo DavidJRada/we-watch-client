@@ -11,10 +11,11 @@ class FeedCard extends Component {
         super(props)
         this.state = {
             formVisible: false,
-            subscribed: this.props.feed_card.subscribed
+            likes: this.props.feed_card.likes
         }
         this.toggleForm = this.toggleForm.bind(this)
         this.toggleSubscribe = this.toggleSubscribe.bind(this)
+        this.addLike = this.addLike.bind(this)
     }
     toggleForm() {
         if (this.props.feed_card) {
@@ -24,14 +25,19 @@ class FeedCard extends Component {
         }
 
     }
-    updateCard(key) {
 
-    }
     toggleSubscribe() {
         this.setState({
             subscribed: !this.state.subscribed
         })
     }
+    addLike = () => {
+        console.log(this.state.likes)
+        this.setState({
+                likes: this.state.likes + 1
+        })
+    }
+
     render() {
         // console.log(this.props.feed_card)
         return (
@@ -49,15 +55,27 @@ class FeedCard extends Component {
                             <span className='card-title'>{this.props.feed_card.title}</span>
                             <p>{this.props.feed_card.content}</p>
                             <br></br>
-                            <p><button>Like</button> {this.props.feed_card.likes}
-                                <br></br>
-    
-                            </p>
 
+
+
+                            <br></br>
+                            <div className='movie-info'>
+                                <div className='movie-text'>
+                                    <p><span className='movie-keys'>Title:</span> {this.props.feed_card.movieTitle}</p>
+                                    <p><span className='movie-keys'>Director:</span>  {this.props.feed_card.movieDirector}</p>
+                                    <p><span className='movie-keys'>Year: </span> {this.props.feed_card.movieYear}</p>
+                                    <br />
+                                    <p><span className='movie-keys'>Plot: </span> {this.props.feed_card.moviePlot}</p>
+                                </div>
+                                <div className='movie-picture'>
+                                    <p><span className='movie-keys'>Poster (click for more): </span> </p><a href={`https://en.wikipedia.org/wiki/${this.props.feed_card.movieTitle}`} target='_blank'><img className='poster' src={this.props.feed_card.moviePoster} alt={`No Poster Available for ${this.props.feed_card.movieTitle}`}></img></a>
+                                </div>
+                            </div>
 
                         </div>
                         <div className="card-action">
-                            
+                            <button onClick={this.addLike}>Like</button> {this.state.likes}
+                            <br></br>
                             <button onClick={() => { this.toggleForm() }}>Edit</button>
 
                             <button onClick={() => { this.props.handleDelete(this.props.feed_card) }}>Delete</button>

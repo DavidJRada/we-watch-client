@@ -62,12 +62,12 @@ class App extends Component {
     })
       .then(createdFeed_card => {
         return createdFeed_card.json()
-
       })
       .then(jsonedFeed_card => {
         this.setState({
           feed: [jsonedFeed_card, ...this.state.feed]
         })
+        console.log(jsonedFeed_card)
       }).catch(error => console.error(error))
   }
   componentDidMount() {
@@ -82,15 +82,16 @@ class App extends Component {
   }
 
   getFeed() {
-    console.log('hi')
     fetch(baseURL + '/feed_cards', {
 
       type: "GET",
-    }).then(result => result.json()).then((result) => {
-      this.setState({
-        feed: result
-      })
     })
+      .then(result => result.json())
+      .then((result) => {
+        this.setState({
+          feed: result
+        })
+      })
       .catch(err => console.error(err))
 
   }
@@ -174,7 +175,7 @@ class App extends Component {
               <Footer />
             </>
             :
-            <LoginPage login={this.login} logout={this.logout} />}
+            <LoginPage login={this.login} />}
         </div>
       </>
     );

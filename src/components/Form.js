@@ -17,11 +17,13 @@ class Form extends React.Component {
             subscribed: false,
             likes: 0,
             user_id: 1,
+            movieData: {}
 
 
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.handleMovieInfo = this.handleMovieInfo.bind(this)
     }
     componentWillMount() {
         if (this.props.feed_card) {
@@ -32,7 +34,12 @@ class Form extends React.Component {
                 subscribed: this.props.feed_card.subscribed,
                 likes: this.props.feed_card.likes,
                 username: this.state.currentUser.username,
-                id: this.props.feed_card.id
+                id: this.props.feed_card.id,
+                movieTitle: this.props.feed_card.movieData.movieTitle,
+                movieDirector: this.props.feed_card.movieData.movieDirector,
+                movieYear: this.props.feed_card.movieData.movieYear,
+                moviePlot: this.props.feed_card.movieData.moviePlot,
+                moviePoster: this.props.feed_card.movieData.moviePOster
             })
         }
 
@@ -53,7 +60,7 @@ class Form extends React.Component {
     }
     handleSubmit(event) {
         event.preventDefault()
-        console.log(this.state.currentUser)
+        console.log(this.state.movieData)
         this.props.handleSubmit(
             event,
             {
@@ -64,7 +71,12 @@ class Form extends React.Component {
                 likes: this.state.likes,
                 user: this.state.currentUser.username,
                 user_id: this.state.user_id,
-                id: this.state.id
+                movieTitle: this.state.movieData.Title,
+                movieDirector: this.state.movieData.Director,
+                movieYear: this.state.movieData.Year,
+                moviePlot: this.state.movieData.Plot,
+                moviePoster: this.state.movieData.Poster
+
             }
         )
         this.setState({
@@ -75,27 +87,24 @@ class Form extends React.Component {
             likes: 0,
             user_id: 0
         })
-        // console.log(this.state.currentUser.username)
+    }
 
+    handleMovieInfo(movieData) {
+        this.setState({
+            movieData: movieData
+        })
     }
     render() {
-        // console.log(this.props.currentUser)
+        // console.log(this.state.movieData)
         return (
             <div className='container'>
-                <Omdb />
-                <form onSubmit={this.handleSubmit}>
-                    {/* <Input
-                        handleChange={this.handleChange}
-                        name={'img'}
-                        placeholder={'img'}
-                        type={'text'}
-                        value={this.state.img}
-                        id={'img'}
-                    /> */}
+                <Omdb handleMovieInfo={this.handleMovieInfo} />
+                <br />
+                <form onSubmit={this.handleSubmit} >
                     <Input
                         handleChange={this.handleChange}
                         name={'title'}
-                        placeholder={'title'}
+                        placeholder={'Title'}
                         type={'text'}
                         value={this.state.title}
                         id={'title'}
@@ -103,15 +112,15 @@ class Form extends React.Component {
                     <Input
                         handleChange={this.handleChange}
                         name={'content'}
-                        placeholder={'content'}
-                        type={'text'}
+                        placeholder={'Why?'}
+                        type={'textarea'}
                         value={this.state.content}
                         id={'content'}
                     />
 
                     <input type='submit' value={this.props.feed_card ? "update this Post" : "add this Post"} />
                 </form>
-                
+
             </div>
 
         )
