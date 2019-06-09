@@ -49,7 +49,7 @@ const LoginPage = props => {
                     <div className='login-buttons'>
                         <br />
                         <br />
-                        <button className='button'
+                        <button
                             onClick={() => { login() }}>Login</button>
                         <button
                             onClick={() => { login() }}>Sign Up</button>
@@ -60,7 +60,7 @@ const LoginPage = props => {
         <div className='right'>
             <div className='center-align container intro'>
                 <div></div>
-                <div className='explanation'>
+                <div className='explanation white-text'>
                     <p>Login to follow your favorite actors and friends. See what they are watching and recommend your favorites to them</p>
                 </div>
             </div>

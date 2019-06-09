@@ -10,7 +10,11 @@
 
 .nav-links {
   /* text-align: center; */
-  color: #4cff8a !important;
+  color: var(--oasis-blue) !important;
+}
+
+.brand-logo {
+  color: var(--oasis-blue) !important;
 }
 
 .layout {
@@ -28,7 +32,6 @@ nav {
   font-family: 'Merriweather', 'serif';
   font-style: italic;
   height: 10vh;
-  color: #4cff8a !important;
 }
 
 .left {
@@ -91,25 +94,27 @@ body {
   margin: 0;
 }
 
-
 @media (max-width: 768px) {
-
+  .layout {
+    grid-template-areas: "nav nav nav" "feed feed right" "footer footer footer";
+  }
+  nav {
+    grid-area: nav;
+    font-family: 'Merriweather', 'serif';
+    font-style: italic;
+    height: 10vh;
+  }
   .left, .right {
     margin: 0;
   }
   .right {
-    height: 5vh;
-  }
-  .left {
-    display: none !important;
+    height: 80vh;
   }
   .feed {
     height: 80vh;
   }
-  .footer {
-    margin-top: -50%;
-    /* position: absolute;
-    bottom: 0; */
+  #nav-mobile {
+    display: none !important;
   }
 }
 

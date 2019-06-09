@@ -17,7 +17,7 @@ class Form extends React.Component {
     }
     findMovie(event) {
         event.preventDefault()
-        fetch('http://www.omdbapi.com/?apikey=456caa89&t=' + this.state.movieTitle)
+        fetch('https://www.omdbapi.com/?apikey=456caa89&t=' + this.state.movieTitle)
             .then(response => response.json())
             .then((response) => {
                 this.setState({
@@ -42,7 +42,7 @@ class Form extends React.Component {
             <>
                 {this.state.movieData.Title ?
                     <div className='container movie-search'>
-                        <div className='center-align'>Congrats you found <span className='light-green-text darken-2 text-size-15'>{this.state.movieData.Title}</span>. <br /> Not what you were looking for?<br /> <button onClick={() => { this.tryAgain() }}>Try Again</button></div>
+                        <div className='center-align'>Congrats you found <span className='wh'>{this.state.movieData.Title}</span>. <br /> Not what you were looking for?<br /> <button onClick={() => { this.tryAgain() }}>Try Again</button></div>
                     </div>
                     :
                     <>
