@@ -97,7 +97,7 @@ class Form extends React.Component {
     render() {
         // console.log(this.state.movieData)
         return (
-            <div className='container'>
+            <div >
                 <Omdb handleMovieInfo={this.handleMovieInfo} />
                 <br />
                 <form onSubmit={this.handleSubmit} >

@@ -59,7 +59,7 @@ class Form extends React.Component {
                     </div>
                     :
                     <>
-                        <p className='center-align movie-search container'>Search for your recommendation by title</p>
+                        <p className='center-align movie-search '>Search for your recommendation by title</p>
                         <form onSubmit={this.findMovie}>
                             <Input
                                 handleChange={this.handleChange}
