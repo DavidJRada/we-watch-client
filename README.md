@@ -13,3 +13,7 @@ Get carousel to work automatically
 
 Add Utelly API to show where the movies are playing
 Make it easier to find the movie you are looking for
+
+Sort people you follow by actor/director/friend
+
+not logged in - landing screen should have most popular posts

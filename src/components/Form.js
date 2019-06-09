@@ -64,7 +64,7 @@ class Form extends React.Component {
         this.props.handleSubmit(
             event,
             {
-                img: this.state.img,
+                img: 'https://media.licdn.com/dms/image/C4D03AQFGjp4GyglG2w/profile-displayphoto-shrink_200_200/0?e=1565827200&v=beta&t=O9kTtfsUJmbeNAdUoOeJ-NDwhHBjVd4xdMtmE5awlzg',
                 title: this.state.title,
                 content: this.state.content,
                 subscribed: this.state.subscribed,

@@ -49,7 +49,7 @@ class FeedCard extends Component {
                         <div className='card-content'>
                             <div className='topOfCard'>
                                 <img src={this.props.feed_card.img} alt="profile"></img>
-                                <h4>{this.props.feed_card.user}</h4>                            {this.state.subscribed ?
+                                <h5 className='user'>{this.props.feed_card.user}</h5>                            {this.state.subscribed ?
                                     <button onClick={() => { this.toggleSubscribe() }}>Follow</button> : <button onClick={() => { this.toggleSubscribe() }}>Unfollow</button>}
                             </div>
                             <br />
