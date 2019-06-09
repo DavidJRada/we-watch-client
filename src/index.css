@@ -1,20 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Merriweather|Raleway&display=swap');
 :root {
   --black: rgba(0, 0, 0, 1);
-  --oasis-green: rgba(131, 151, 136, 1);
-  --sandy: #48435c;
+  --oasis-green: lightgrey;
+  --sandy: black;
   --shady-sand: rgba(186, 168, 152, 1);
   --oasis-blue: rgba(191, 215, 234, 1);
-  --forms: #5a5766
-}
-
-.nav-links {
-  /* text-align: center; */
-  color: var(--oasis-blue) !important;
-}
-
-.brand-logo {
-  color: var(--oasis-blue) !important;
+  /* --forms: #5a5766 */
 }
 
 .layout {
@@ -55,7 +46,7 @@ footer {
   grid-area: footer;
   margin: 0.5rem;
   height: 10vh;
-  background-color: var(--oasis-blue);
+  background-color: teal;
 }
 
 .feed_card {
@@ -138,19 +129,22 @@ body {
 
 .login {
   padding-top: 15px;
+ 
+  display: flex;
+  flex-direction: column;
 }
-
 .login-buttons {
   display: flex;
   justify-content: space-around;
+  margin: 0px 50px !important;
 }
 
 .intro {
-  /* color: green; */
-  display: flex;
+  /* color: green !important; */
+  /* display: flex;
   align-items: center;
   justify-content: space-evenly;
-  flex-direction: column;
+  flex-direction: column; */
 }
 
 .intro>div {
@@ -168,7 +162,6 @@ body {
   justify-self: flex-start;
   align-self: flex-start;
   margin: 5px;
-  ;
   width: 58%;
   line-height: 2;
   font-size: 12px;
@@ -210,4 +203,17 @@ body {
 
 .movie-search {
   margin-top: 20px !important;
+}
+
+.btn {
+  background-color: red !important;
+}
+
+
+.found-movie-title {
+  color: red !important;
+  /* border: 1px solid black; */
+  font-weight: bold;
+  font-size: 18px;
+  padding: 5px;
 }

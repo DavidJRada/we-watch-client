@@ -9,58 +9,59 @@ const LoginPage = props => {
 
     return (<>
         <Left />
-        <div className='feed'>
-            <div className="container" >
-                <div className='login'>
-                    <form>
-                        <div className='row'>
-                            <div className='input-field col 10'>
-                                <label htmlFor="email">Email: </label>
-                                <br />
-                                <input
-                                    name="email"
-                                    id="email"
-                                    type="email"
-                                />
-                            </div>
+        <div className='feed login'>
+            <div className='row center-align'>
+                <form className='col s12 center-align'>
+                    <div className='row'>
+                        <div className='input-field col s12 center-align'>
+                            <label htmlFor="email">Email: </label>
                             <br />
-                            <div className='input-field col 6'>
-                                <label htmlFor="password">Password: </label>
-                                <br />
-                                <input
-                                    className='input-field'
-                                    name="password"
-                                    id="password"
-                                    type="password"
-                                />
-                            </div>
-                            <br />
-                            <div className='input-field col'>
-                                <label htmlFor="username">Username: </label>
-                                <br />
-                                <input
-                                    name="username"
-                                    id="username"
-                                    type="text"
-                                />
-                            </div>
-                        </div>
-                    </form>
-                    <div className='login-buttons'>
-                        <br />
-                        <br />
-                        <button
-                            onClick={() => { login() }}>Login</button>
-                        <button
-                            onClick={() => { login() }}>Sign Up</button>
+                            <input
+                                name="email"
+                                id="email"
+                                type="email"
+                            />
+
                     </div>
-                </div>
+                    <br />
+                    <div className='input-field col s12'>
+                        <label htmlFor="password">Password: </label>
+                        <br />
+                        <input
+                            className='input-field'
+                            name="password"
+                            id="password"
+                            type="password"
+                        />
+                    </div>
+                    </div>
+                    <br />
+                    <div className='input-field col'>
+                        <label htmlFor="username">Username: </label>
+                        <br />
+                        <input
+                            name="username"
+                            id="username"
+                            type="text"
+                        />
+                    </div>
+
+                </form>
             </div>
+            <div className='login-buttons'>
+                <br />
+                <br />
+                <button className='btn'
+                    onClick={() => { login() }}>Login</button>
+                <button className='btn'
+                    onClick={() => { login() }}>Sign Up</button>
+            </div>
+
         </div>
         <div className='right'>
             <div className='center-align container intro'>
                 <div></div>
-                <div className='explanation white-text'>
+                <div className='explanation black-text'>
                     <p>Login to follow your favorite actors and friends. See what they are watching and recommend your favorites to them</p>
                 </div>
             </div>
