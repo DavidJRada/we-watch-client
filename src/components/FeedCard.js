@@ -34,7 +34,7 @@ class FeedCard extends Component {
     addLike = () => {
         console.log(this.state.likes)
         this.setState({
-                likes: this.state.likes + 1
+            likes: this.state.likes + 1
         })
     }
 
@@ -52,15 +52,18 @@ class FeedCard extends Component {
                                 <h4>{this.props.feed_card.user}</h4>                            {this.state.subscribed ?
                                     <button onClick={() => { this.toggleSubscribe() }}>Follow</button> : <button onClick={() => { this.toggleSubscribe() }}>Unfollow</button>}
                             </div>
-                            <span className='card-title'>{this.props.feed_card.title}</span>
-                            <p>{this.props.feed_card.content}</p>
+                            <br />
+                            <div className='card-title-and-content'>
+                                <span className='card-title center-align'>{this.props.feed_card.title}</span>
+                                <p className='center-align'>{this.props.feed_card.content}</p>
+                            </div>
                             <br></br>
 
 
 
                             <br></br>
                             <div className='movie-info'>
-                                <div className='movie-text'>
+                                <div className='movie-text center-align'>
                                     <p><span className='movie-keys'>Title:</span> {this.props.feed_card.movieTitle}</p>
                                     <p><span className='movie-keys'>Director:</span>  {this.props.feed_card.movieDirector}</p>
                                     <p><span className='movie-keys'>Year: </span> {this.props.feed_card.movieYear}</p>
@@ -68,7 +71,8 @@ class FeedCard extends Component {
                                     <p><span className='movie-keys'>Plot: </span> {this.props.feed_card.moviePlot}</p>
                                 </div>
                                 <div className='movie-picture'>
-                                    <p><span className='movie-keys'>Poster (click for more): </span> </p><a href={`https://en.wikipedia.org/wiki/${this.props.feed_card.movieTitle}`} target='_blank'><img className='poster' src={this.props.feed_card.moviePoster} alt={`No Poster Available for ${this.props.feed_card.movieTitle}`}></img></a>
+                                    <p><span className='movie-keys'>Poster (click for more): </span> </p>
+                                    <br /> <a href={`https://en.wikipedia.org/wiki/${this.props.feed_card.movieTitle}`} target='_blank'><img className='poster' src={this.props.feed_card.moviePoster} alt={`No Poster Available for ${this.props.feed_card.movieTitle}`}></img></a>
                                 </div>
                             </div>
 

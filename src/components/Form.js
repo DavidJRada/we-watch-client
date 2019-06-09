@@ -35,11 +35,11 @@ class Form extends React.Component {
                 likes: this.props.feed_card.likes,
                 username: this.state.currentUser.username,
                 id: this.props.feed_card.id,
-                movieTitle: this.props.feed_card.movieData.movieTitle,
-                movieDirector: this.props.feed_card.movieData.movieDirector,
-                movieYear: this.props.feed_card.movieData.movieYear,
-                moviePlot: this.props.feed_card.movieData.moviePlot,
-                moviePoster: this.props.feed_card.movieData.moviePOster
+                movieTitle: this.props.feed_card.movieTitle,
+                movieDirector: this.props.feed_card.movieDirector,
+                movieYear: this.props.feed_card.movieYear,
+                moviePlot: this.props.feed_card.moviePlot,
+                moviePoster: this.props.feed_card.moviePOster
             })
         }
 

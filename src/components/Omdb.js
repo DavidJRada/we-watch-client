@@ -41,12 +41,12 @@ class Form extends React.Component {
         return (
             <>
                 {this.state.movieData.Title ?
-                    <div>
+                    <div className='container movie-search'>
                         <div className='center-align'>Congrats you found <span className='light-green-text darken-2 text-size-15'>{this.state.movieData.Title}</span>. <br /> Not what you were looking for?<br /> <button onClick={() => { this.tryAgain() }}>Try Again</button></div>
                     </div>
                     :
                     <>
-                        <p className='center-align'>Search for your recommendation by title</p>
+                        <p className='center-align movie-search container'>Search for your recommendation by title</p>
                         <form onSubmit={this.findMovie}>
                             <Input
                                 handleChange={this.handleChange}
